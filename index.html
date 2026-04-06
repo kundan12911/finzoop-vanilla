@@ -39,7 +39,7 @@
   <script src="/cms-preview.js" defer></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body data-cms="global-settings">
+<body data-cms-page="homepage" data-cms="global-settings">
 
   <!-- HEADER -->
   <header class="header" data-cms="navigation">
@@ -257,30 +257,6 @@
   </footer>
 
   <script src="main.js"></script>
-  <script>
-    lucide.createIcons();
-    
-    // Final dynamic injection logic
-    document.addEventListener('DOMContentLoaded', async () => {
-      // 1. Hero Dynamic Injection
-      if (window.fetchHeroBanner) {
-        const hero = await window.fetchHeroBanner('homepage-hero');
-        if (hero) {
-          const heroSection = document.querySelector('[data-cms-id="homepage-hero"]');
-          if (heroSection) {
-            if (hero.headline) heroSection.querySelector('h1').innerText = hero.headline;
-            if (hero.subtext) heroSection.querySelector('p').innerText = hero.subtext;
-            if (hero.ctaText && hero.ctaUrl) {
-              const cta = heroSection.querySelector('.hero-ctas .btn:first-child');
-              if (cta) {
-                cta.innerText = hero.ctaText;
-                cta.setAttribute('href', hero.ctaUrl);
-              }
-            }
-          }
-        }
-      }
-    });
-  </script>
+  <script>if(window.lucide) lucide.createIcons();</script>
 </body>
 </html>

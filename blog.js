@@ -8,10 +8,6 @@ async function renderBlogListing(options = {}) {
     const { items: posts, includes } = await window.fetchBlogPosts(options);
     
     if (!posts || posts.length === 0) {
-      if (window.renderWordPressBlogListing) {
-        console.log('[CMS] Contentful empty, falling back to WordPress...');
-        return window.renderWordPressBlogListing(options);
-      }
       container.innerHTML = '<p style="text-align:center; grid-column:span 3; padding:40px;">No blog posts available yet. Connect to Contentful to see your stories here!</p>';
       return;
     }

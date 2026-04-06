@@ -139,6 +139,54 @@ async function fetchCalculatorMeta(slug) {
   return data?.items?.[0]?.fields || null;
 }
 
+/** Navigation (Menus & Footer) */
+async function fetchNavigation(identifier = 'main-nav') {
+  const data = await _fetchContentful('entries', {
+    content_type: 'navigation',
+    'fields.identifier': identifier,
+    limit: 1,
+  }, `nav-${identifier}`);
+
+  const fields = data?.items?.[0]?.fields;
+  if (!fields) return null;
+
+  // Render Top Menu
+  if (fields.items) {
+    const navContainer = document.querySelector('.nav-links');
+    if (navContainer) {
+      let navHtml = '';
+      fields.items.forEach(item => {
+        if (item.dropdown) {
+           navHtml += `
+             <div class="dropdown">
+               <a href="${item.url || '#'}" class="nav-link">${item.label} ▾</a>
+               <div class="dropdown-menu">
+                 ${item.dropdown.map(d => `<a href="${d.url}" class="dropdown-item">${d.label}</a>`).join('')}
+               </div>
+             </div>
+           `;
+        } else {
+           navHtml += `<a href="${item.url}" class="nav-link">${item.label}</a>`;
+        }
+      });
+      navContainer.innerHTML = navHtml;
+    }
+  }
+  return fields;
+}
+
+/** Page Content (Logical container for Sections) */
+async function fetchPageContent(slug) {
+  const data = await _fetchContentful('entries', {
+    content_type: 'pageContent',
+    'fields.slug': slug,
+    limit: 1,
+    include: 3
+  }, `page-${slug}`);
+
+  return data?.items?.[0]?.fields || null;
+}
+
 /** Published blog posts — newest first */
 async function fetchBlogPosts(options = {}) {
   const params = {
@@ -237,21 +285,36 @@ function renderLucideIcons() {
 // ─── Auto-init on page load ───────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // Auto-inject SEO if page declares a slug via data-cms-slug attribute
+  // Auto-inject SEO and Page Content if page declares a slug
+  const pageEl = document.querySelector('[data-cms-page]');
+  const slug = pageEl?.getAttribute('data-cms-page');
+  
+  if (slug) {
+    const pageData = await fetchPageContent(slug);
+    if (pageData) {
+      if (pageData.seo) injectSEO(pageData.seo);
+      if (pageData.hero) {
+         // Custom logic to update hero section text...
+      }
+    }
+  }
+
+  // Fallback for independent SEO tags
   const seoEl = document.querySelector('[data-cms="page-seo"][data-cms-slug]');
-  if (seoEl) {
-    const slug = seoEl.getAttribute('data-cms-slug');
-    const seo  = await fetchPageSeo(slug);
+  if (seoEl && !slug) {
+    const s = seoEl.getAttribute('data-cms-slug');
+    const seo = await fetchPageSeo(s);
     if (seo) injectSEO(seo);
   }
 
   // Auto-inject calculator meta if page declares it
   const calcEl = document.querySelector('[data-cms="calculator-meta"][data-cms-slug]');
   if (calcEl) {
-    const slug = calcEl.getAttribute('data-cms-slug');
-    await fetchCalculatorMeta(slug); // result available for page-level scripts via window.cmsCalcMeta
+    const s = calcEl.getAttribute('data-cms-slug');
+    await fetchCalculatorMeta(s);
   }
 
+  await fetchNavigation();
   await fetchGlobalSettings();
   renderLucideIcons();
 });
