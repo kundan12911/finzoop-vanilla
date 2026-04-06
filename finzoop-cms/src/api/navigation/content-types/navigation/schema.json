@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "navigations",
+  "info": {
+    "singularName": "navigation",
+    "pluralName": "navigations",
+    "displayName": "Navigation",
+    "description": "Controls all nav items, dropdowns, and footer links."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "mainNav": {
+      "type": "json"
+    },
+    "footerLinksCol1": {
+      "type": "json"
+    },
+    "footerLinksCol2": {
+      "type": "json"
+    },
+    "ctaButtonLabel": {
+      "type": "string",
+      "default": "Check Eligibility"
+    },
+    "ctaButtonUrl": {
+      "type": "string"
+    },
+    "ctaButtonColor": {
+      "type": "string"
+    },
+    "isPublished": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

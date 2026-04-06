@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "hero_banners",
+  "info": {
+    "singularName": "hero-banner",
+    "pluralName": "hero-banners",
+    "displayName": "Hero Banner",
+    "description": "Controls hero section on any page."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "identifier": {
+      "type": "uid",
+      "required": true
+    },
+    "headingLine1": {
+      "type": "string",
+      "required": true
+    },
+    "headingLine2": {
+      "type": "string"
+    },
+    "headingHighlight": {
+      "type": "string"
+    },
+    "subheading": {
+      "type": "text"
+    },
+    "ctaPrimaryLabel": {
+      "type": "string"
+    },
+    "ctaPrimaryUrl": {
+      "type": "string"
+    },
+    "ctaSecondaryLabel": {
+      "type": "string"
+    },
+    "ctaSecondaryUrl": {
+      "type": "string"
+    },
+    "backgroundType": {
+      "type": "enumeration",
+      "enum": ["gradient", "image", "video"],
+      "default": "gradient"
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "videos"]
+    },
+    "backgroundGradientFrom": {
+      "type": "string"
+    },
+    "backgroundGradientTo": {
+      "type": "string"
+    },
+    "trustBarItems": {
+      "type": "json"
+    },
+    "isPublished": {
+      "type": "boolean",
+      "default": true
+    },
+    "publishedAt": {
+      "type": "datetime"
+    }
+  }
+}

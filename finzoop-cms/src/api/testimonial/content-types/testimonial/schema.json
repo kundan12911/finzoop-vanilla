@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "testimonials",
+  "info": {
+    "singularName": "testimonial",
+    "pluralName": "testimonials",
+    "displayName": "Testimonial"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "city": {
+      "type": "string"
+    },
+    "product": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    },
+    "reviewText": {
+      "type": "text",
+      "required": true
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "initials": {
+      "type": "string"
+    },
+    "verifiedBadge": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOnHomepage": {
+      "type": "boolean",
+      "default": false
+    },
+    "showOnProductPage": {
+      "type": "string" // string matching product slug
+    },
+    "sortOrder": {
+      "type": "integer"
+    },
+    "isPublished": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

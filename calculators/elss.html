@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELSS Tax Saving Calculator | Mutual Fund Tax Calculator | Finzoop</title>
+  <meta name="description" content="Calculate returns and tax saved under Section 80C by investing in Equity Linked Savings Scheme (ELSS) mutual funds.">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="header"><div class="container nav-container"><a href="../index.html" class="logo">Fin<span>zoop</span></a></div></header>
+  <div class="container" style="padding-top: 120px;">
+    <h1 style="text-align: center; margin-bottom: 40px;">ELSS Tax Saving Calculator</h1>
+    <div class="calc-container">
+      <div class="card">
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Yearly ELSS Investment (Max ₹1.5L for 80C)</label>
+          <div class="number-input-wrap"><span>₹</span><input type="text" class="sync-input" data-sync="elss-amt" value="150000"></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="elss-amt" min="5000" max="150000" step="1000" value="150000"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Your Tax Slab (%)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="elss-slab" value="30" style="padding-left:12px;"><span style="left:auto;right:12px;">%</span></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="elss-slab" min="5" max="30" step="1" value="30"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Expected Annual Return (%)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="elss-rate" value="12" style="padding-left:12px;"><span style="left:auto;right:12px;">%</span></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="elss-rate" min="5" max="25" step="0.5" value="12"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Time Period (Years)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="elss-years" value="3" style="padding-left:12px;"><span style="left:auto;right:12px;">Yr</span></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="elss-years" min="3" max="20" step="1" value="3"></div>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-row" style="background: rgba(0, 200, 150, 0.1); padding: 16px; border-radius: 8px; border-bottom: none; margin-bottom: 16px;">
+           <div class="result-label" style="color: var(--secondary); font-weight: 700;">Tax Saved Every Year (Under 80C)</div>
+           <div class="result-val highlight" id="res-tax-saved" style="color: var(--secondary);">₹0</div>
+        </div>
+        <div class="result-row"><div class="result-label">Total Invested (Over Period)</div><div class="result-val" id="res-inv">₹0</div></div>
+        <div class="result-row"><div class="result-label">Estimated Returns</div><div class="result-val" id="res-ret">₹0</div></div>
+        <div class="result-row" style="border-bottom:none; margin-top:8px;"><div class="result-label" style="font-weight:700;">Total Maturity Value</div><div class="result-val highlight" id="res-total">₹0</div></div>
+        <div class="chart-container"><canvas id="elssChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <script src="../main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let chart;
+      function calculate() {
+        const P = parseFloat(document.querySelector('.sync-range[data-sync="elss-amt"]').value);
+        const slab = parseFloat(document.querySelector('.sync-range[data-sync="elss-slab"]').value) / 100;
+        const r = parseFloat(document.querySelector('.sync-range[data-sync="elss-rate"]').value) / 100;
+        const y = parseFloat(document.querySelector('.sync-range[data-sync="elss-years"]').value);
+        
+        const taxSaved = P * slab * 1.04; // including 4% cess approximation
+        
+        let inv = 0; let A = 0;
+        for(let i=1; i<=y; i++) {
+           inv += P;
+           A = (A + P) * (1 + r);
+        }
+
+        document.getElementById('res-tax-saved').innerText = window.formatINR(taxSaved);
+        document.getElementById('res-inv').innerText = window.formatReadableINR(inv);
+        document.getElementById('res-ret').innerText = window.formatReadableINR(A - inv);
+        document.getElementById('res-total').innerText = window.formatReadableINR(A);
+
+        if (chart) { chart.data.datasets[0].data = [inv, A - inv]; chart.update(); }
+        else {
+          const ctx = document.getElementById('elssChart').getContext('2d');
+          chart = new Chart(ctx, { type: 'pie', data: { labels: ['Invested Amount', 'Returns Generated'], datasets: [{ data: [inv, A - inv], backgroundColor: ['#0F172A', '#00C896'], borderWidth:0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{position:'bottom'}} } });
+        }
+      }
+      window.calcUpdateCallbacks.push(calculate); calculate();
+    });
+  </script>
+</body>
+</html>

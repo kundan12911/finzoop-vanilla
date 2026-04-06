@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mutual Fund Returns Calculator | Calculate MF Returns Online | Finzoop</title>
+  <meta name="description" content="Calculate mutual fund absolute and annualised (CAGR) returns online instantly.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="header"><div class="container nav-container"><a href="../index.html" class="logo">Fin<span>zoop</span></a></div></header>
+  <div class="container" style="padding-top: 120px;">
+    <h1 style="text-align: center; margin-bottom: 40px;">Mutual Fund Returns Calculator</h1>
+    <div class="calc-container">
+      <div class="card">
+        <div class="toggle-group" id="mfr-type" style="margin-bottom:24px;">
+          <button data-value="sip" class="active">SIP Return</button>
+          <button data-value="lumpsum">Lumpsum Return</button>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label" id="mfr-amt-label">Monthly Investment</label>
+          <div class="number-input-wrap"><span>₹</span><input type="text" class="sync-input" data-sync="mfr-amt" value="5000"></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="mfr-amt" min="500" max="1000000" step="500" value="5000"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Investment Period (Years)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="mfr-years" value="5" style="padding-left:12px;"><span style="left:auto;right:12px;">Yr</span></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="mfr-years" min="1" max="40" step="1" value="5"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Current / Maturity Value</label>
+          <div class="number-input-wrap"><span>₹</span><input type="text" class="sync-input" data-sync="mfr-val" value="500000"></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="mfr-val" min="10000" max="50000000" step="10000" value="500000"></div>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-row"><div class="result-label">Total Invested</div><div class="result-val" id="res-inv">₹0</div></div>
+        <div class="result-row"><div class="result-label">Absolute Return</div><div class="result-val" id="res-abs" style="color:var(--secondary);">0%</div></div>
+        <div class="result-row" style="border-bottom:none; margin-top:8px;"><div class="result-label" style="font-weight:700;">Annualised Return (CAGR/XIRR)</div><div class="result-val highlight" id="res-cagr">0% p.a.</div></div>
+      </div>
+    </div>
+  </div>
+  <script src="../main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let isSip = true;
+      document.addEventListener('toggleChanged', (e) => {
+        if(e.detail.group === 'mfr-type') {
+          isSip = e.detail.value === 'sip';
+          document.getElementById('mfr-amt-label').innerText = isSip ? 'Monthly Investment' : 'Total Investment';
+          window.calcUpdateCallbacks.forEach(cb => cb());
+        }
+      });
+      function calculate() {
+        const amt = parseFloat(document.querySelector('.sync-range[data-sync="mfr-amt"]').value);
+        const y = parseFloat(document.querySelector('.sync-range[data-sync="mfr-years"]').value);
+        const FV = parseFloat(document.querySelector('.sync-range[data-sync="mfr-val"]').value);
+        const inv = isSip ? amt * y * 12 : amt;
+        document.getElementById('res-inv').innerText = window.formatReadableINR(inv);
+        if (FV <= inv) { document.getElementById('res-abs').innerText = '0%'; document.getElementById('res-cagr').innerText = '0% p.a.'; return; }
+        const abs = ((FV - inv) / inv) * 100;
+        document.getElementById('res-abs').innerText = abs.toFixed(2) + '%';
+        let rate = 0;
+        if (!isSip) { rate = (Math.pow(FV / amt, 1 / y) - 1) * 100; } 
+        else {
+          let low = 0, high = 1, i = 0.005;
+          for(let iter=0; iter<50; iter++){
+             let calcFV = amt * ((Math.pow(1+i, y*12) - 1)/i) * (1+i);
+             if(Math.abs(calcFV - FV) < 1) break;
+             if(calcFV > FV) { high = i; i = (low + high)/2; } else { low = i; i = (low + high)/2; }
+          }
+          if(i === 1) rate = 0; else rate = (Math.pow(1+i, 12) - 1) * 100;
+        }
+        document.getElementById('res-cagr').innerText = rate.toFixed(2) + '% p.a.';
+      }
+      window.calcUpdateCallbacks.push(calculate); calculate();
+    });
+  </script>
+</body>
+</html>

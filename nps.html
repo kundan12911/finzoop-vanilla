@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invest in NPS Online | National Pension System | Finzoop</title>
+  <meta name="description" content="Secure your retirement with the National Pension System (NPS). Save up to ₹50,000 extra in taxes u/s 80CCD(1B). Calculate your pension corpus today.">
+  <link rel="canonical" href="https://finzoop.com/nps.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">Fin<span>zoop</span></a>
+      <button class="hamburger" aria-label="Toggle Navigation">☰</button>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link active">Products ▾</a>
+          <div class="dropdown-menu">
+            <a href="mutual-funds.html" class="dropdown-item">Mutual Funds</a>
+            <a href="nps.html" class="dropdown-item" style="color: var(--primary); font-weight: 600;">NPS</a>
+          </div>
+        </div>
+        <a href="calculators.html" class="nav-link">Calculators</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container" style="padding-top: 120px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><span class="separator">›</span><span aria-current="page">NPS</span>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <h1 style="text-align: center;">National Pension System (NPS)</h1>
+      <p style="text-align: center; margin-bottom: 40px; max-width: 600px; margin: 0 auto 40px;">The smartest way to build your retirement wealth while enjoying exclusive tax benefits.</p>
+
+      <div class="grid-3" style="grid-template-columns: 1fr 1fr;">
+        <div class="card" style="background: var(--light-bg);">
+          <h2 style="font-size: 24px; color: var(--primary);">Tier 1 Account</h2>
+          <p>The mandatory retirement account with tax benefits.</p>
+          <ul style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 24px;">
+            <li>Lock-in until age 60</li>
+            <li>Min. annual contribution: ₹1,000</li>
+            <li>Extra ₹50,000 tax deduction u/s 80CCD(1B)</li>
+            <li>60% corpus is tax-free on withdrawal, 40% mandatory annuity</li>
+          </ul>
+        </div>
+        
+        <div class="card">
+          <h2 style="font-size: 24px;">Tier 2 Account</h2>
+          <p>A voluntary investment account with greater flexibility.</p>
+          <ul style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 24px;">
+            <li>No lock-in period (withdraw anytime)</li>
+            <li>No minimum annual contribution after initial setup</li>
+            <li>No tax deductions available</li>
+            <li>Requires an active Tier 1 account</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NPS Calc Embedded -->
+  <section class="section" style="background: var(--card-bg);">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="text-align: center; margin-bottom: 40px;">Estimate Your Retirement Corpus</h2>
+      <div class="card">
+        <div class="input-group">
+          <label class="input-label">Monthly Contribution (₹)</label>
+          <input type="number" id="nps-monthly" value="5000" style="width:100%; padding: 10px; margin-top:8px;">
+        </div>
+        <div style="display: flex; gap: 20px;">
+          <div class="input-group" style="flex:1;">
+            <label class="input-label">Current Age</label>
+            <input type="number" id="nps-age" value="30" style="width:100%; padding: 10px; margin-top:8px;">
+          </div>
+          <div class="input-group" style="flex:1;">
+            <label class="input-label">Expected Return (%)</label>
+            <input type="number" id="nps-ret" value="10" style="width:100%; padding: 10px; margin-top:8px;">
+          </div>
+        </div>
+        <div style="background: var(--light-bg); padding: 20px; border-radius: 12px; margin-top: 20px; text-align: center;">
+          <div style="font-size: 14px; color: var(--text-secondary);">Estimated Corpus at Age 60</div>
+          <div id="nps-corpus" style="font-size: 36px; font-weight: 800; color: var(--primary);">₹1.13 Cr</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function updateNPS() {
+        const P = parseFloat(document.getElementById('nps-monthly').value) || 0;
+        const age = parseFloat(document.getElementById('nps-age').value) || 30;
+        const ret = parseFloat(document.getElementById('nps-ret').value) || 10;
+        const years = Math.max(0, 60 - age);
+        const n = years * 12;
+        const i = ret / 12 / 100;
+        const val = i===0 ? P*n : P * ((Math.pow(1+i, n) - 1)/i) * (1+i);
+        document.getElementById('nps-corpus').innerText = window.formatReadableINR ? window.formatReadableINR(val) : '₹'+val.toFixed(0);
+      }
+      document.getElementById('nps-monthly').addEventListener('input', updateNPS);
+      document.getElementById('nps-age').addEventListener('input', updateNPS);
+      document.getElementById('nps-ret').addEventListener('input', updateNPS);
+    </script>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">Fin<span style="color:var(--secondary)">zoop</span></div>
+          <p class="disclaimer">Finzoop is a PFRDA registered Point of Presence (PoP). NPS returns are market-linked and not guaranteed.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

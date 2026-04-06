@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Loans Online - Personal, Home, Business Loans | Finzoop</title>
+  <meta name="description" content="Compare and apply for personal loans, home loans, business loans at lowest interest rates. Check eligibility in 2 minutes. Zero processing fee.">
+  <meta name="keywords" content="personal loan, home loan, business loan, finzoop loans, instant loan">
+  <link rel="canonical" href="https://finzoop.com/loans.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">Fin<span>zoop</span></a>
+      <button class="hamburger" aria-label="Toggle Navigation">☰</button>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link active">Products ▾</a>
+          <div class="dropdown-menu">
+            <a href="loans.html" class="dropdown-item">Loans</a>
+            <a href="credit-cards.html" class="dropdown-item">Credit Cards</a>
+            <a href="insurance.html" class="dropdown-item">Insurance</a>
+            <a href="mutual-funds.html" class="dropdown-item">Mutual Funds</a>
+            <a href="nps.html" class="dropdown-item">NPS</a>
+            <a href="investments.html" class="dropdown-item">Investments</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="calculators.html" class="nav-link">Calculators ▾</a>
+          <div class="dropdown-menu">
+            <a href="calculators/emi.html" class="dropdown-item">EMI Calculator</a>
+            <a href="calculators.html" class="dropdown-item" style="color: var(--primary); font-weight: 600;">View All 14 Tools →</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="#" class="btn btn-primary" style="margin-left: 16px;">Check Eligibility</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container" style="padding-top: 120px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><span class="separator">›</span><span aria-current="page">Loans</span>
+    </nav>
+  </div>
+
+  <section class="hero gradient-bg" style="padding: 60px 0 80px;">
+    <div class="container">
+      <h1>Get the Right Loan. Faster.</h1>
+      <p>Compare pre-approved offers from 50+ lenders. Lowest interest rates, minimum documentation.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn" style="background:#fff; color:var(--primary);">Check Free CIBIL Score</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      
+      <div class="toggle-group" style="max-width: 800px; margin: 0 auto 40px; display: flex; flex-wrap: wrap;">
+        <button class="active" onclick="showTab('personal')">Personal Loan</button>
+        <button onclick="showTab('home')">Home Loan</button>
+        <button onclick="showTab('business')">Business Loan</button>
+        <button onclick="showTab('lap')">Loan Against Property</button>
+      </div>
+
+      <!-- PERSONAL LOAN TAB -->
+      <div id="tab-personal" class="loan-tab" style="display: block;">
+        <div class="grid-3" style="grid-template-columns: 2fr 1fr; align-items: start;">
+          <div class="card">
+            <h2>Personal Loans</h2>
+            <p>Instant personal loans up to ₹40 Lakhs with tenure up to 60 months. Best for medical emergencies, weddings, debt consolidation, or a sudden cash crunch.</p>
+            <ul style="margin: 20px 0 24px 20px; line-height: 2;">
+              <li><strong>Interest Rate:</strong> Starts from 10.49% p.a.</li>
+              <li><strong>Processing Fee:</strong> Up to 2% of loan amount</li>
+              <li><strong>Eligibility:</strong> Minimum income ₹15,000/month</li>
+              <li><strong>Documents:</strong> PAN, Aadhaar, 3 months bank statement</li>
+            </ul>
+            <a href="#" class="btn btn-primary">Apply Now</a>
+          </div>
+          <div class="card" style="background: var(--light-bg);">
+            <h3 style="font-size: 20px; margin-bottom: 20px;">Quick EMI Estimate</h3>
+            <div class="input-group">
+              <div class="input-label">Amount (₹)</div>
+              <input type="number" id="pl-amt" value="500000" class="sync-input" style="width:100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border);">
+            </div>
+            <div class="input-group">
+              <div class="input-label">Tenure (Months)</div>
+              <input type="number" id="pl-tenure" value="60" class="sync-input" style="width:100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border);">
+            </div>
+            <div style="font-size: 24px; font-weight: 700; color: var(--primary); margin-top:20px;">
+              EMI: <span id="pl-emi">₹10,747</span><span style="font-size: 14px; color: var(--text-secondary)">/mo</span>
+            </div>
+            <div style="font-size: 12px; color:var(--text-secondary); margin-top: 5px;">@ 10.5% p.a.</div>
+            <a href="calculators/emi.html" style="font-size: 13px; display:block; margin-top: 15px;">Open full EMI Calculator →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOME LOAN TAB (Hidden by default, simplified for implementation plan) -->
+      <div id="tab-home" class="loan-tab" style="display: none;">
+        <div class="card">
+          <h2>Home Loans</h2>
+          <p>Build or buy your dream home with interest rates starting from 8.30% p.a. Financing up to 90% of property value.</p>
+          <a href="#" class="btn btn-primary">Check Offers</a>
+        </div>
+      </div>
+      
+      <!-- BUSINESS LOAN TAB -->
+      <div id="tab-business" class="loan-tab" style="display: none;">
+        <div class="card">
+          <h2>Business Loans</h2>
+          <p>Collateral-free working capital or MSME loans up to ₹50 Lakhs for growth and expansion.</p>
+          <a href="#" class="btn btn-primary">Check Offers</a>
+        </div>
+      </div>
+
+      <!-- LAP TAB -->
+      <div id="tab-lap" class="loan-tab" style="display: none;">
+        <div class="card">
+          <h2>Loan Against Property (LAP)</h2>
+          <p>Leverage your property's value for a high-quantum loan at lower interest rates.</p>
+          <a href="#" class="btn btn-primary">Check Offers</a>
+        </div>
+      </div>
+
+      <script>
+        function showTab(id) {
+          document.querySelectorAll('.loan-tab').forEach(el => el.style.display = 'none');
+          document.getElementById('tab-' + id).style.display = 'block';
+          // Update button states handled by main.js toggle logic if structured properly,
+          // for this inline script we rely on the main.js generic toggle logic or just do it here:
+          event.target.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+          event.target.classList.add('active');
+        }
+        
+        // Simple EMI calc for the widget
+        function updateWidget() {
+          const P = parseFloat(document.getElementById('pl-amt').value) || 0;
+          const N = parseFloat(document.getElementById('pl-tenure').value) || 1;
+          const R = 10.5 / 12 / 100;
+          const emi = (P * R * Math.pow(1+R, N)) / (Math.pow(1+R, N) - 1);
+          document.getElementById('pl-emi').innerText = window.formatINR(emi);
+        }
+        document.getElementById('pl-amt').addEventListener('input', updateWidget);
+        document.getElementById('pl-tenure').addEventListener('input', updateWidget);
+      </script>
+
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--card-bg);">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="text-align: center; margin-bottom: 40px;">Compare Lenders</h2>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border);">
+              <th style="padding: 16px;">Bank / NBFC</th>
+              <th style="padding: 16px;">Personal Loan</th>
+              <th style="padding: 16px;">Home Loan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 16px;">Leading Bank 1</td><td style="padding: 16px;">10.49% - 16.00%</td><td style="padding: 16px;">8.40% - 9.15%</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border);">
+               <td style="padding: 16px;">Leading Bank 2</td><td style="padding: 16px;">10.50% - 17.50%</td><td style="padding: 16px;">8.35% - 9.50%</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 16px;">Major NBFC</td><td style="padding: 16px;">11.00% - 22.00%</td><td style="padding: 16px;">N/A</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="section">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
+      <div class="faq-accordion" itemscope itemtype="https://schema.org/FAQPage">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">Does checking loan offers map my CIBIL score?</div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+             <div itemprop="text"><p>No, checking eligibility on Finzoop generates a "soft pull" which does not impact your credit score at all.</p></div>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">What is the minimum CIBIL score required for a Personal Loan?</div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+             <div itemprop="text"><p>Ideally, a score above 750 gets you the best interest rates. However, some NBFCs provide loans for scores as low as 650 with a marginally higher interest rate.</p></div>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">Are there any prepayment penalties?</div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+             <div itemprop="text"><p>For floating rate home loans, banks cannot charge prepayment penalties as per RBI guidelines. For personal and business loans, it varies from 1% to 4% depending on the lender.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">Fin<span style="color:var(--secondary)">zoop</span></div>
+          <p class="disclaimer">Finzoop is a DSA (Direct Selling Agent) / Lead aggregator. Loan approvals are at the sole discretion of the respective lending partners subject to credit policy.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2025 Finzoop. All Rights Reserved.</div>
+        <div style="display: flex; gap: 16px;">
+          <a href="privacy-policy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

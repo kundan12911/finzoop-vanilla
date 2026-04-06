@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIP Calculator - Calculate SIP Returns Online Free | Finzoop</title>
+  <meta name="description" content="Use Finzoop's SIP calculator to estimate returns on your Systematic Investment Plan. Calculate monthly SIP maturity amount and wealth gained.">
+  <meta name="keywords" content="SIP calculator, mutual fund SIP, systematic investment plan, SIP returns calculator India">
+  <link rel="canonical" href="https://finzoop.com/calculators/sip.html">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    window.CMS_URL = 'http://localhost:1337';
+    window.CMS_TOKEN = '';
+  </script>
+  <script src="/cms.js" defer></script>
+  <script src="/publish-control.js" defer></script>
+  <script src="/cms-preview.js" defer></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Finzoop SIP Calculator",
+    "url": "https://finzoop.com/calculators/sip.html",
+    "description": "Calculate returns on your Systematic Investment Plan (SIP) instantly.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "All"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="../index.html" class="logo">Fin<span>zoop</span></a>
+      <button class="hamburger" aria-label="Toggle Navigation"><i data-lucide="menu" class="icon-sm"></i></button>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link">Products <i data-lucide="chevron-down" class="icon-sm"></i></a>
+          <div class="dropdown-menu">
+            <a href="../loans.html" class="dropdown-item">Loans</a>
+            <a href="../mutual-funds.html" class="dropdown-item">Mutual Funds</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="../calculators.html" class="nav-link active">Calculators <i data-lucide="chevron-down" class="icon-sm"></i></a>
+          <div class="dropdown-menu">
+            <a href="sip.html" class="dropdown-item" style="color:var(--primary); font-weight:600;">SIP Calculator</a>
+            <a href="lumpsum.html" class="dropdown-item">Lumpsum Calculator</a>
+            <a href="emi.html" class="dropdown-item">EMI Calculator</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container" style="padding-top: 120px;" data-cms="calculator-meta" data-cms-slug="sip-calculator">
+    <nav class="breadcrumb">
+      <a href="../index.html">Home</a><span class="separator">›</span>
+      <a href="../calculators.html">Calculators</a><span class="separator">›</span>
+      <span aria-current="page">SIP Calculator</span>
+    </nav>
+    
+    <h1 style="text-align: center; margin-bottom: 40px;">SIP Return Calculator</h1>
+
+    <div class="calc-container">
+      <!-- Left: Inputs -->
+      <div class="card">
+        <div class="input-group">
+          <div class="input-header">
+            <label class="input-label">Monthly Investment</label>
+            <div class="number-input-wrap">
+              <span>&#8377;</span>
+              <input type="text" class="sync-input" data-sync="sip-amt" value="5000">
+            </div>
+          </div>
+          <div class="range-slider">
+            <input type="range" class="sync-range" data-sync="sip-amt" min="500" max="100000" step="500" value="5000">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-header">
+            <label class="input-label">Expected Annual Return (%)</label>
+            <div class="number-input-wrap">
+              <input type="text" class="sync-input" data-sync="sip-rate" value="12" style="padding-left:12px; padding-right:28px;">
+              <span style="left:auto; right:12px;">%</span>
+            </div>
+          </div>
+          <div class="range-slider">
+            <input type="range" class="sync-range" data-sync="sip-rate" min="1" max="30" step="0.5" value="12">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-header">
+            <label class="input-label">Investment Period (Years)</label>
+            <div class="number-input-wrap">
+              <input type="text" class="sync-input" data-sync="sip-years" value="10" style="padding-left:12px; padding-right:32px;">
+              <span style="left:auto; right:12px;">Yr</span>
+            </div>
+          </div>
+          <div class="range-slider">
+            <input type="range" class="sync-range" data-sync="sip-years" min="1" max="40" step="1" value="10">
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Results -->
+      <div class="result-card">
+        <div class="result-row">
+          <div class="result-label"><span style="display:inline-block; width:12px; height:12px; background:var(--secondary); border-radius:3px;"></span> Invested Amount</div>
+          <div class="result-val" id="res-inv">&#8377;0</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label"><span style="display:inline-block; width:12px; height:12px; background:var(--accent); border-radius:3px;"></span> Estimated Returns</div>
+          <div class="result-val" id="res-ret">&#8377;0</div>
+        </div>
+        <div class="result-row" style="border-bottom:none; margin-top:8px;">
+          <div class="result-label" style="font-weight:700; color:var(--text-primary);">Total Value</div>
+          <div class="result-val highlight" id="res-total">&#8377;0</div>
+        </div>
+        
+        <div class="chart-container">
+          <canvas id="sipChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO Content & FAQs -->
+    <article class="article-content" style="margin: 60px auto;">
+      <h2>What is a SIP Calculator?</h2>
+      <p>A Systematic Investment Plan (SIP) calculator is a tool that helps you compute the future value of your monthly mutual fund investments. By leveraging the power of compound interest, SIP allows small monthly contributions to grow into a substantial corpus over time. Finzoop's SIP calculator gives you instant projections based on your expected rate of return.</p>
+
+      <h2>How DOES the SIP Formula Work?</h2>
+      <p>The mathematical formula used by mutual funds for calculating SIP returns is based on the future value of an annuity. The formula is:</p>
+      <div class="card" style="font-family: monospace; background:var(--dark); color:#5eead4; margin:20px 0; padding:20px; font-size:16px;">
+        M = P × ({[1 + i]^n – 1} / i) × (1 + i)
+      </div>
+      <p>Where:</p>
+      <ul>
+        <li><strong>M</strong> = Maturity amount or Total Value</li>
+        <li><strong>P</strong> = Monthly SIP amount</li>
+        <li><strong>i</strong> = Monthly interest rate (Annual Rate / 12 / 100)</li>
+        <li><strong>n</strong> = Number of months (Years × 12)</li>
+      </ul>
+
+      <h2>Benefits of SIP Investing</h2>
+      <ol>
+        <li><strong>Rupee Cost Averaging:</strong> You buy more units when the market is down and fewer units when it is up, lowering your average cost per unit.</li>
+        <li><strong>Power of Compounding:</strong> Returns generated on your investment generate further returns. The longer you stay invested, the steeper the wealth creation curve.</li>
+        <li><strong>Discipline:</strong> Automatic monthly deductions ensure you save before you spend, embedding crucial financial discipline.</li>
+      </ol>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-accordion" itemscope itemtype="https://schema.org/FAQPage">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">Are SIP returns guaranteed?</div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+             <div itemprop="text"><p>No. Mutual fund SIP returns are linked to the performance of the financial markets (equity or debt). However, historically, equity mutual funds have delivered inflation-beating returns over long periods (7+ years).</p></div>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">Can I pause or stop my SIP anytime?</div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+             <div itemprop="text"><p>Yes, mutual funds offer absolute flexibility. You can pause, stop, or modify your SIP amount at any time without any penalties, unless the fund is an ELSS (which has a 3-year lock-in per installment).</p></div>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">Is 12% a realistic return expectation?</div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+             <div itemprop="text"><p>For diversified equity mutual funds in India, a long-term CAGR of 10% to 12% is considered a realistic assumption based on historical data. However, shorter horizons may experience significant volatility.</p></div>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">Does SIP save taxes?</div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+             <div itemprop="text"><p>Only investments made in Equity Linked Savings Schemes (ELSS) via SIP qualify for tax deduction under Section 80C up to &#8377;1.5 Lakhs. Regular equity and debt SIPs do not offer 80C benefits.</p></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center;">&copy; 2025 Finzoop. All Rights Reserved.</div>
+  </footer>
+
+  <script src="../main.js"></script>
+  <script>if(window.lucide) { lucide.createIcons(); }</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let chart;
+
+      function calculate() {
+        const P = parseFloat(document.querySelector('.sync-range[data-sync="sip-amt"]').value);
+        const rAnnual = parseFloat(document.querySelector('.sync-range[data-sync="sip-rate"]').value);
+        const years = parseFloat(document.querySelector('.sync-range[data-sync="sip-years"]').value);
+
+        const i = rAnnual / 12 / 100;
+        const n = years * 12;
+
+        let totalVal = 0;
+        const investedAmount = P * n;
+
+        if (i === 0) {
+          totalVal = investedAmount;
+        } else {
+          totalVal = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+        }
+
+        const estReturns = totalVal - investedAmount;
+
+        document.getElementById('res-inv').innerText = window.formatReadableINR(investedAmount);
+        document.getElementById('res-ret').innerText = window.formatReadableINR(estReturns);
+        document.getElementById('res-total').innerText = window.formatReadableINR(totalVal);
+
+        updateChart(investedAmount, estReturns);
+      }
+
+      function updateChart(invested, returns) {
+        if (chart) {
+          chart.data.datasets[0].data = [invested, returns];
+          chart.update();
+          return;
+        }
+
+        const ctx = document.getElementById('sipChart').getContext('2d');
+        chart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Invested Amount', 'Estimated Returns'],
+            datasets: [{
+              data: [invested, returns],
+              backgroundColor: ['#00C896', '#FF6B35'],
+              borderWidth: 0,
+              hoverOffset: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+              legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return context.label + ': ' + window.formatINR(context.raw);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      window.calcUpdateCallbacks.push(calculate);
+      calculate();
+    });
+  </script>
+</body>
+</html>

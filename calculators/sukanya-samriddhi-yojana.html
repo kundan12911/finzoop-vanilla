@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sukanya Samriddhi Yojana Calculator - SSY Calculator 2025 | Finzoop</title>
+  <meta name="description" content="Calculate SSY maturity amount. Sukanya Samriddhi Yojana interest rate 8.2% for 2024-25. Free SSY calculator online.">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="header"><div class="container nav-container"><a href="../index.html" class="logo">Fin<span>zoop</span></a></div></header>
+  <div class="container" style="padding-top: 120px;">
+    <h1 style="text-align: center; margin-bottom: 40px;">Sukanya Samriddhi Yojana (SSY) Calculator</h1>
+    <div class="calc-container">
+      <div class="card">
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Yearly Investment</label>
+          <div class="number-input-wrap"><span>₹</span><input type="text" class="sync-input" data-sync="ssy-amt" value="50000"></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="ssy-amt" min="250" max="150000" step="250" value="50000"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Girl's Current Age (Years)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="ssy-age" value="1" style="padding-left:12px;"></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="ssy-age" min="0" max="10" step="1" value="1"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">SSY Interest Rate (%)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="ssy-rate" value="8.2" style="padding-left:12px;"><span style="left:auto;right:12px;">%</span></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="ssy-rate" min="7" max="10" step="0.1" value="8.2"></div>
+        </div>
+        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 20px;">Note: Investment is made only for 15 years from account opening. The account matures at 21 years from account opening.</p>
+      </div>
+      <div class="result-card">
+        <div class="result-row"><div class="result-label">Total Invested</div><div class="result-val" id="res-inv">₹0</div></div>
+        <div class="result-row"><div class="result-label">Total Interest (Tax Free)</div><div class="result-val" id="res-int" style="color:var(--secondary);">₹0</div></div>
+        <div class="result-row" style="border-bottom:none; margin-top:8px;"><div class="result-label" style="font-weight:700;">Maturity Amount (Age <span id="mat-age">22</span>)</div><div class="result-val highlight" id="res-total">₹0</div></div>
+        <div class="chart-container"><canvas id="ssyChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <script src="../main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let chart;
+      function calculate() {
+        const P = parseFloat(document.querySelector('.sync-range[data-sync="ssy-amt"]').value);
+        const age = parseFloat(document.querySelector('.sync-range[data-sync="ssy-age"]').value);
+        const r = parseFloat(document.querySelector('.sync-range[data-sync="ssy-rate"]').value) / 100;
+        
+        let bal = 0; let inv = 0;
+        const labels = []; const invData = []; const intData = [];
+        
+        for (let y = 1; y <= 21; y++) {
+          if (y <= 15) { bal += P; inv += P; }
+          const interest = bal * r;
+          bal += interest;
+          labels.push('Yr ' + y); invData.push(inv); intData.push(bal - inv);
+        }
+        document.getElementById('res-inv').innerText = window.formatReadableINR(inv);
+        document.getElementById('res-int').innerText = window.formatReadableINR(bal - inv);
+        document.getElementById('res-total').innerText = window.formatReadableINR(bal);
+        document.getElementById('mat-age').innerText = (age + 21).toString();
+
+        if (chart) { chart.data.labels=labels; chart.data.datasets[0].data=invData; chart.data.datasets[1].data=intData; chart.update(); }
+        else {
+          const ctx = document.getElementById('ssyChart').getContext('2d');
+          chart = new Chart(ctx, { type: 'bar', data: { labels: labels, datasets: [{ label: 'Invested', data: invData, backgroundColor: '#00C896', stack:'x' }, { label: 'Interest', data: intData, backgroundColor: '#1B4FD8', stack:'x' }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: {stacked:true, grid:{display:false}}, y:{stacked:true, ticks:{callback:v=>'₹'+(v/100000).toFixed(0)+'L'}} } } });
+        }
+      }
+      window.calcUpdateCallbacks.push(calculate); calculate();
+    });
+  </script>
+</body>
+</html>

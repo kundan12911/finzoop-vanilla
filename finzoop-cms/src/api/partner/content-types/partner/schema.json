@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "partners",
+  "info": {
+    "singularName": "partner",
+    "pluralName": "partners",
+    "displayName": "Partner"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "logoAlt": {
+      "type": "string"
+    },
+    "websiteUrl": {
+      "type": "string"
+    },
+    "partnerType": {
+      "type": "enumeration",
+      "enum": ["lender", "insurer", "amcFund", "card-issuer", "other"]
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOnHomepage": {
+      "type": "boolean",
+      "default": true
+    },
+    "sortOrder": {
+      "type": "integer"
+    },
+    "isPublished": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

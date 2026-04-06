@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XIRR Calculator - Extended Internal Rate of Return | Finzoop</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="header"><div class="container nav-container"><a href="../index.html" class="logo">Fin<span>zoop</span></a></div></header>
+  <div class="container" style="padding-top: 120px;">
+    <h1 style="text-align: center; margin-bottom: 20px;">XIRR Calculator</h1>
+    <p style="text-align: center; margin-bottom: 40px;">Measure returns for irregular investments and SIPs accurately.</p>
+    
+    <!-- Simplified Educational Structure due to complexity of XIRR implementation in vanilla js -->
+    <div class="card" style="max-width: 800px; margin: 0 auto; padding: 40px;">
+      <h2 style="margin-bottom: 20px;">Why use XIRR?</h2>
+      <p>When you invest a single amount and withdraw it later, calculating the Annualised Return (CAGR) is easy. But what if you invest ₹5000 in January, withdraw ₹2000 in April, and invest ₹10000 in August?</p>
+      <p>Because your cash flows are happening at irregular intervals, standard CAGR fails. <strong>XIRR (Extended Internal Rate of Return)</strong> assigns a specific weight to each cash flow based on the exact number of days it was invested.</p>
+      
+      <div style="background: var(--light-bg); border-left: 4px solid var(--primary); padding: 24px; margin-top: 30px;">
+         <h3 style="font-size: 18px; margin-bottom: 16px;">How to calculate XIRR easily:</h3>
+         <ol style="margin-left: 20px; line-height: 1.8;">
+           <li>Open Microsoft Excel or Google Sheets.</li>
+           <li>In Column A, enter the exact <strong>Dates</strong> of your transactions.</li>
+           <li>In Column B, enter the <strong>Amounts</strong>. Use negative values (-5000) for your investments, and positive values (12500) for withdrawals / current portfolio value.</li>
+           <li>Use the formula: <code style="background:#fff; padding:2px 8px; border:1px solid var(--border); border-radius:4px;">=XIRR(B1:B10, A1:A10)</code></li>
+           <li>Format the result as a Percentage to view your actual return.</li>
+         </ol>
+      </div>
+
+      <div style="margin-top: 30px; text-align: center;">
+         <a href="mutual-fund-returns.html" class="btn btn-primary">Use standard MF Returns Calculator instead</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

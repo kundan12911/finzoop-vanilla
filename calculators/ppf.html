@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PPF Calculator - Public Provident Fund Calculator 2025 | Finzoop</title>
+  <meta name="description" content="Calculate PPF maturity amount and yearly interest. Current PPF interest rate 7.1%. Free PPF calculator for India.">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="header"><div class="container nav-container"><a href="../index.html" class="logo">Fin<span>zoop</span></a></div></header>
+  <div class="container" style="padding-top: 120px;">
+    <h1 style="text-align: center; margin-bottom: 40px;">Public Provident Fund (PPF) Calculator</h1>
+    <div class="calc-container">
+      <div class="card">
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Yearly Investment</label>
+          <div class="number-input-wrap"><span>₹</span><input type="text" class="sync-input" data-sync="ppf-amt" value="100000"></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="ppf-amt" min="500" max="150000" step="500" value="100000"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Time Period (Years)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="ppf-years" value="15" style="padding-left:12px;"><span style="left:auto;right:12px;">Yr</span></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="ppf-years" min="15" max="35" step="5" value="15"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">PPF Interest Rate (%)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="ppf-rate" value="7.1" style="padding-left:12px;"><span style="left:auto;right:12px;">%</span></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="ppf-rate" min="7" max="9" step="0.1" value="7.1"></div>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-row"><div class="result-label">Total Invested</div><div class="result-val" id="res-inv">₹0</div></div>
+        <div class="result-row"><div class="result-label">Total Interest (Tax Free)</div><div class="result-val" id="res-int" style="color:var(--secondary);">₹0</div></div>
+        <div class="result-row" style="border-bottom:none; margin-top:8px;"><div class="result-label" style="font-weight:700;">Maturity Amount (EEE)</div><div class="result-val highlight" id="res-total">₹0</div></div>
+        <div class="chart-container"><canvas id="ppfChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <script src="../main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let chart;
+      function calculate() {
+        const P = parseFloat(document.querySelector('.sync-range[data-sync="ppf-amt"]').value);
+        const y = parseFloat(document.querySelector('.sync-range[data-sync="ppf-years"]').value);
+        const r = parseFloat(document.querySelector('.sync-range[data-sync="ppf-rate"]').value) / 100;
+        
+        let bal = 0; let inv = 0;
+        const labels = []; const invData = []; const intData = [];
+        
+        for (let i = 1; i <= y; i++) {
+          bal += P; inv += P;
+          const interest = bal * r;
+          bal += interest;
+          labels.push('Yr ' + i); invData.push(inv); intData.push(bal - inv);
+        }
+        document.getElementById('res-inv').innerText = window.formatReadableINR(inv);
+        document.getElementById('res-int').innerText = window.formatReadableINR(bal - inv);
+        document.getElementById('res-total').innerText = window.formatReadableINR(bal);
+
+        if (chart) { chart.data.labels=labels; chart.data.datasets[0].data=invData; chart.data.datasets[1].data=intData; chart.update(); }
+        else {
+          const ctx = document.getElementById('ppfChart').getContext('2d');
+          chart = new Chart(ctx, { type: 'bar', data: { labels: labels, datasets: [{ label: 'Invested', data: invData, backgroundColor: '#0F172A', stack:'x' }, { label: 'Interest', data: intData, backgroundColor: '#FF6B35', stack:'x' }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: {stacked:true, grid:{display:false}}, y:{stacked:true, ticks:{callback:v=>'₹'+(v/100000).toFixed(0)+'L'}} } } });
+        }
+      }
+      window.calcUpdateCallbacks.push(calculate); calculate();
+    });
+  </script>
+</body>
+</html>

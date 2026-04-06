@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GST Calculator Online - Add & Remove GST | Finzoop</title>
+  <meta name="description" content="Calculate Goods and Services Tax (GST) easily. Add GST to base price or extract GST from total amount. Supports 5%, 12%, 18% and 28% slabs.">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .gst-slab-btn { padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: #fff; cursor: pointer; font-weight: 600; color: var(--text-secondary); }
+    .gst-slab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  </style>
+</head>
+<body>
+  <header class="header"><div class="container nav-container"><a href="../index.html" class="logo">Fin<span>zoop</span></a></div></header>
+  <div class="container" style="padding-top: 120px;">
+    <h1 style="text-align: center; margin-bottom: 40px;">GST Calculator</h1>
+    <div class="calc-container" style="grid-template-columns: 1fr 1fr; max-width: 900px; margin: 0 auto;">
+      <div class="card">
+        <div class="toggle-group" id="gst-mode" style="margin-bottom: 24px;">
+          <button data-value="add" class="active">Add GST</button>
+          <button data-value="remove">Remove GST</button>
+        </div>
+        <div class="input-group">
+          <label class="input-label" id="amount-label" style="display:block; margin-bottom:8px;">Net Price (Without GST)</label>
+          <div class="number-input-wrap" style="width:100%;"><span style="z-index: 10;">₹</span><input type="number" id="gst-amount" value="1000" style="width:100%; padding:10px 10px 10px 30px; border-radius:8px; border:1px solid var(--border);"></div>
+        </div>
+        <div class="input-group">
+          <label class="input-label" style="display:block; margin-bottom:8px;">GST Slab</label>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;" id="gst-slabs">
+            <button class="gst-slab-btn" data-slab="3">3%</button>
+            <button class="gst-slab-btn" data-slab="5">5%</button>
+            <button class="gst-slab-btn" data-slab="12">12%</button>
+            <button class="gst-slab-btn active" data-slab="18">18%</button>
+            <button class="gst-slab-btn" data-slab="28">28%</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="background: var(--light-bg); display:flex; flex-direction: column; justify-content: center;">
+        <div class="result-row" style="border-bottom: 1px solid var(--border);"><div class="result-label">Total GST Amount</div><div class="result-val highlight" id="res-gst" style="color:var(--accent);">₹180</div></div>
+        <div class="result-row" style="border-bottom: 1px solid var(--border);"><div class="result-label">CGST (Half)</div><div class="result-val" id="res-cgst">₹90</div></div>
+        <div class="result-row" style="border-bottom: 1px solid var(--border);"><div class="result-label">SGST (Half)</div><div class="result-val" id="res-sgst">₹90</div></div>
+        <div class="result-row" style="border-bottom:none; margin-top:16px;">
+          <div class="result-label" style="font-weight:700; font-size:18px;" id="total-label">Total Price (With GST)</div>
+          <div class="result-val highlight" id="res-total" style="font-size:28px;">₹1,180</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let mode = 'add'; let slab = 18;
+      document.addEventListener('toggleChanged', (e) => {
+        if(e.detail.group === 'gst-mode') {
+          mode = e.detail.value;
+          document.getElementById('amount-label').innerText = mode === 'add' ? 'Net Price (Without GST)' : 'Gross Price (With GST)';
+          document.getElementById('total-label').innerText = mode === 'add' ? 'Total Price (With GST)' : 'Net Price (Without GST)';
+          calculate();
+        }
+      });
+      document.querySelectorAll('.gst-slab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.gst-slab-btn').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          slab = parseFloat(e.target.dataset.slab);
+          calculate();
+        });
+      });
+      document.getElementById('gst-amount').addEventListener('input', calculate);
+      
+      function calculate() {
+        const amt = parseFloat(document.getElementById('gst-amount').value) || 0;
+        let gstAmt = 0; let finalAmt = 0;
+        if(mode === 'add') {
+          gstAmt = amt * (slab / 100); finalAmt = amt + gstAmt;
+        } else {
+          gstAmt = amt - (amt * (100 / (100 + slab))); finalAmt = amt - gstAmt;
+        }
+        document.getElementById('res-gst').innerText = window.formatINR(gstAmt);
+        document.getElementById('res-cgst').innerText = window.formatINR(gstAmt / 2);
+        document.getElementById('res-sgst').innerText = window.formatINR(gstAmt / 2);
+        document.getElementById('res-total').innerText = window.formatINR(finalAmt);
+      }
+      calculate();
+    });
+  </script>
+</body>
+</html>

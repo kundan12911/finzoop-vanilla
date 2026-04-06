@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head><title>Publish Control Test Suite</title></head>
+<body>
+  <h1>Publish Control Test Suite</h1>
+  <div id="results" style="font-family: monospace;"></div>
+  <script src="/publish-control.js"></script>
+  <script>
+    const now = new Date();
+    const past = new Date(now.getTime() - 10000).toISOString();
+    const future = new Date(now.getTime() + 100000).toISOString();
+
+    const mockPosts = [
+      // STRAPI POSTS
+      { id: 'S1', attributes: { isPublished: true, publishedAt: past } }, // Should PASS
+      { id: 'S2', attributes: { isPublished: false, publishedAt: past } }, // Should FAIL (isPublished false)
+      { id: 'S3', attributes: { isPublished: true, publishedAt: future } }, // Should FAIL (future pub date)
+      { id: 'S4', attributes: { isPublished: true } }, // Should PASS (no date constraint)
+      
+      // WP POSTS
+      { id: 'W1', status: 'publish', date: past }, // Should PASS
+      { id: 'W2', status: 'draft', date: past }, // Should FAIL
+      { id: 'W3', status: 'pending', date: past }, // Should FAIL
+      { id: 'W4', status: 'publish', date: future }, // Should FAIL
+      { id: 'W5', status: 'publish' } // Should PASS
+    ];
+
+    const results = window.filterPublished(mockPosts);
+    const expectedIds = ['S1', 'S4', 'W1', 'W5'];
+    const actualIds = results.map(r => r.id);
+
+    const match = expectedIds.length === actualIds.length && expectedIds.every(v => actualIds.includes(v));
+
+    const resDiv = document.getElementById('results');
+    if (match) {
+      resDiv.innerHTML = '<h2 style="color:green;">ALL TESTS PASSED</h2>';
+    } else {
+      resDiv.innerHTML = '<h2 style="color:red;">TESTS FAILED</h2><p>Expected: ' + expectedIds.join(',') + '<br>Actual: ' + actualIds.join(',') + '</p>';
+    }
+  </script>
+</body>
+</html>

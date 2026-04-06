@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finzoop - Loans, Insurance, Mutual Funds & Investments in India</title>
+  <meta name="description" content="Finzoop helps you compare and apply for the best loans, credit cards, insurance, mutual funds and investments online. Free tools and expert guidance.">
+  <meta name="keywords" content="loans, insurance, mutual funds, credit cards, investments, SIP calculator, India">
+  <link rel="canonical" href="https://finzoop.com/">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Finzoop - Smart Financial Decisions Start Here">
+  <meta property="og:description" content="Compare loans, insurance, mutual funds and investments online. Free tools and expert guidance.">
+  <meta property="og:url" content="https://finzoop.com/">
+  <meta property="og:type" content="website">
+
+  <!-- Schema.org Organization-->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Finzoop",
+    "url": "https://finzoop.com",
+    "logo": "https://finzoop.com/logo.png",
+    "sameAs": [
+      "https://twitter.com/finzoop",
+      "https://linkedin.com/company/finzoop"
+    ]
+  }
+  </script>
+
+  <script>
+    window.CMS_URL = 'http://localhost:1337';
+    window.CMS_TOKEN = ''; // set via environment or build step
+  </script>
+  <script src="/cms.js" defer></script>
+  <script src="/publish-control.js" defer></script>
+  <script src="/cms-preview.js" defer></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body data-cms="global-settings">
+
+  <!-- HEADER -->
+  <header class="header" data-cms="navigation">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">Fin<span>zoop</span></a>
+      <button class="hamburger" aria-label="Toggle Navigation"><i data-lucide="menu" class="icon-sm"></i></button>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link">Products <i data-lucide="chevron-down" class="icon-sm"></i></a>
+          <div class="dropdown-menu">
+            <a href="loans.html" class="dropdown-item">Loans</a>
+            <a href="credit-cards.html" class="dropdown-item">Credit Cards</a>
+            <a href="insurance.html" class="dropdown-item">Insurance</a>
+            <a href="mutual-funds.html" class="dropdown-item">Mutual Funds</a>
+            <a href="nps.html" class="dropdown-item">NPS</a>
+            <a href="investments.html" class="dropdown-item">Investments</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="calculators.html" class="nav-link">Calculators <i data-lucide="chevron-down" class="icon-sm"></i></a>
+          <div class="dropdown-menu">
+            <a href="calculators/sip.html" class="dropdown-item">SIP Calculator</a>
+            <a href="calculators/emi.html" class="dropdown-item">EMI Calculator</a>
+            <a href="calculators/income-tax.html" class="dropdown-item">Income Tax</a>
+            <a href="calculators/fd.html" class="dropdown-item">FD Calculator</a>
+            <a href="calculators.html" class="dropdown-item" style="color: var(--primary); font-weight: 600;">View All 14 Tools <i data-lucide="arrow-right" class="icon-sm"></i></a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="#" class="btn btn-primary" style="margin-left: 16px;">Check Eligibility</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero gradient-bg" data-cms="hero" data-cms-id="homepage-hero">
+    <div class="container">
+      <h1>Smart Financial Decisions Start Here</h1>
+      <p>Compare loans, insurance, mutual funds and investments. Free tools. Unbiased advice. Zero hidden charges.</p>
+      <div class="hero-ctas">
+        <a href="#products" class="btn" style="background:#fff; color:var(--primary);">Explore Products</a>
+        <a href="calculators.html" class="btn btn-secondary">Try Calculators</a>
+      </div>
+      
+      <div class="trust-bar">
+        <div><strong>₹500Cr+</strong> Disbursed</div>
+        <div><strong>1L+</strong> Happy Users</div>
+        <div><strong>50+</strong> Partners</div>
+        <div><strong>AMFI</strong> Registered</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 60px;">How It Works</h2>
+      <div class="grid-3" style="text-align: center;">
+        <div class="card">
+          <div class="icon-box" style="margin: 0 auto 20px; color: var(--primary);"><i data-lucide="search-check" class="icon-xl"></i></div>
+          <h3>Check Eligibility</h3>
+          <p>Free credit score check in 2 minutes to unlock personalized offers.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box" style="margin: 0 auto 20px; color: var(--accent);"><i data-lucide="git-compare" class="icon-xl"></i></div>
+          <h3>Compare Offers</h3>
+          <p>Best interest rates and premium plans from 50+ top lenders & insurers.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box" style="margin: 0 auto 20px; color: var(--secondary);"><i data-lucide="badge-check" class="icon-xl"></i></div>
+          <h3>Apply & Approved</h3>
+          <p>End-to-end digital journey with direct disbursement to your account.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS GRID -->
+  <section id="products" class="section" style="background: var(--card-bg);" data-cms="product-content" data-cms-slug="homepage">
+    <div class="container">
+      <h2 style="text-align: center;">Our Products</h2>
+      <p style="text-align: center; max-width: 600px; margin: 0 auto 40px;">Find exactly what you need to grow your wealth and protect your family.</p>
+      
+      <div class="grid-3">
+        <a href="loans.html" class="card" style="display: block;">
+          <div class="icon-box"><i data-lucide="banknote" class="icon-xl"></i></div>
+          <h3>Loans</h3>
+          <p>Personal, Home, and Business loans with quick disbursal and lowest interest rates.</p>
+          <span style="font-weight: 600; color: var(--primary);">Learn More <i data-lucide="arrow-right" class="icon-sm"></i></span>
+        </a>
+        <a href="credit-cards.html" class="card" style="display: block;">
+          <div class="icon-box"><i data-lucide="credit-card" class="icon-xl"></i></div>
+          <h3>Credit Cards</h3>
+          <p>Cards tailored for rewards, cashback, and travel benefits matching your lifestyle.</p>
+          <span style="font-weight: 600; color: var(--primary);">Learn More <i data-lucide="arrow-right" class="icon-sm"></i></span>
+        </a>
+        <a href="insurance.html" class="card" style="display: block;">
+          <div class="icon-box"><i data-lucide="shield-check" class="icon-xl"></i></div>
+          <h3>Insurance</h3>
+          <p>Comprehensive Life, Health, and Motor insurance plans to secure your future.</p>
+          <span style="font-weight: 600; color: var(--primary);">Learn More <i data-lucide="arrow-right" class="icon-sm"></i></span>
+        </a>
+        <a href="mutual-funds.html" class="card" style="display: block;">
+          <div class="icon-box"><i data-lucide="trending-up" class="icon-xl"></i></div>
+          <h3>Mutual Funds</h3>
+          <p>Invest in top-rated equity and debt funds. Start your SIP from just ₹500/month.</p>
+          <span style="font-weight: 600; color: var(--primary);">Learn More <i data-lucide="arrow-right" class="icon-sm"></i></span>
+        </a>
+        <a href="nps.html" class="card" style="display: block;">
+          <div class="icon-box"><i data-lucide="building-2" class="icon-xl"></i></div>
+          <h3>NPS</h3>
+          <p>Build your retirement corpus and save up to ₹50,000 extra in taxes u/s 80CCD(1B).</p>
+          <span style="font-weight: 600; color: var(--primary);">Learn More <i data-lucide="arrow-right" class="icon-sm"></i></span>
+        </a>
+        <a href="investments.html" class="card" style="display: block;">
+          <div class="icon-box"><i data-lucide="landmark" class="icon-xl"></i></div>
+          <h3>FDs & Bonds</h3>
+          <p>Safe, guaranteed returns with Fixed Deposits and top-rated Corporate Bonds.</p>
+          <span style="font-weight: 600; color: var(--primary);">Learn More <i data-lucide="arrow-right" class="icon-sm"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATORS PREVIEW -->
+  <section class="section" data-cms="calculator-hub">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
+        <div>
+          <h2>Plan Your Finances</h2>
+          <p style="margin:0;">Use our free financial calculators to make data-backed decisions.</p>
+        </div>
+        <a href="calculators.html" class="btn btn-outline desktop-only">View All 14 Calculators</a>
+      </div>
+
+      <div class="grid-3">
+        <div class="card" style="padding: 24px;">
+          <h3 style="font-size: 20px; display: flex; align-items: center; gap:12px;"><i data-lucide="trending-up" class="icon-lg"></i> SIP Calculator</h3>
+          <p class="small">Calculate wealth creation through regular mutual fund investments.</p>
+          <a href="calculators/sip.html" class="btn btn-outline" style="width: 100%; padding: 8px;">Calculate Now <i data-lucide="arrow-right" class="icon-sm"></i></a>
+        </div>
+        <div class="card" style="padding: 24px;">
+          <h3 style="font-size: 20px; display: flex; align-items: center; gap:12px;"><i data-lucide="house" class="icon-lg"></i> EMI Calculator</h3>
+          <p class="small">Compute your monthly home, car, or personal loan instalments.</p>
+          <a href="calculators/emi.html" class="btn btn-outline" style="width: 100%; padding: 8px;">Calculate Now <i data-lucide="arrow-right" class="icon-sm"></i></a>
+        </div>
+        <div class="card" style="padding: 24px;">
+          <h3 style="font-size: 20px; display: flex; align-items: center; gap:12px;"><i data-lucide="calculator" class="icon-lg"></i> Income Tax Calculator</h3>
+          <p class="small">Compare Old vs New regime for FY 2025-26 and optimize taxes.</p>
+          <a href="calculators/income-tax.html" class="btn btn-outline" style="width: 100%; padding: 8px;">Calculate Now <i data-lucide="arrow-right" class="icon-sm"></i></a>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 32px;" class="mobile-only">
+        <a href="calculators.html" class="btn btn-outline">View All 14 Calculators</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">Fin<span style="color:var(--secondary)">zoop</span></div>
+          <p style="font-size: 14px; margin-bottom: 24px; max-width: 300px;">Your Financial Journey, Simplified. Compare and apply for loans, insurance, and investments seamlessly.</p>
+          <p class="disclaimer footer-disclaimer">Finzoop is a financial services distribution platform. Mutual fund investments are subject to market risks. Read all scheme-related documents carefully. Insurance is the subject matter of solicitation.</p>
+          <div class="social-links" style="display:flex; gap:12px; margin-top: 16px;">
+            <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="icon-md"></i></a>
+            <a href="#" aria-label="Twitter"><i data-lucide="twitter" class="icon-md"></i></a>
+            <a href="#" aria-label="Instagram"><i data-lucide="instagram" class="icon-md"></i></a>
+            <a href="#" aria-label="YouTube"><i data-lucide="youtube" class="icon-md"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="loans.html">Loans</a></li>
+            <li><a href="mutual-funds.html">Mutual Funds</a></li>
+            <li><a href="insurance.html">Insurance</a></li>
+            <li><a href="blog.html">Blog & Resources</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Calculators</h4>
+          <div class="footer-calc-grid">
+            <ul class="footer-links">
+              <li><a href="calculators/sip.html">SIP Calculator</a></li>
+              <li><a href="calculators/emi.html">EMI Calculator</a></li>
+              <li><a href="calculators/fd.html">FD Calculator</a></li>
+              <li><a href="calculators/ppf.html">PPF Calculator</a></li>
+            </ul>
+            <ul class="footer-links">
+              <li><a href="calculators/income-tax.html">Income Tax</a></li>
+              <li><a href="calculators/elss.html">ELSS Calculator</a></li>
+              <li><a href="calculators/lumpsum.html">Lumpsum</a></li>
+              <li><a href="calculators.html">View All <i data-lucide="arrow-right" class="icon-sm"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2025 Finzoop. All Rights Reserved.</div>
+        <div style="display: flex; gap: 16px;">
+          <a href="privacy-policy.html" style="color: #94A3B8;">Privacy Policy</a>
+          <a href="terms.html" style="color: #94A3B8;">Terms & Conditions</a>
+        </div>
+        <div>AMFI Registered | IRDAI Corporate Agent</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

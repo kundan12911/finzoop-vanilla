@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixed Deposit (FD) Calculator - Compare FD Rates & Returns | Finzoop</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="header"><div class="container nav-container"><a href="../index.html" class="logo">Fin<span>zoop</span></a></div></header>
+  <div class="container" style="padding-top: 120px;">
+    <h1 style="text-align: center; margin-bottom: 40px;">FD Calculator</h1>
+    <div class="calc-container">
+      <div class="card">
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Total Investment</label>
+          <div class="number-input-wrap"><span>₹</span><input type="text" class="sync-input" data-sync="fd-amt" value="100000"></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="fd-amt" min="10000" max="10000000" step="10000" value="100000"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Interest Rate (% p.a)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="fd-rate" value="7.5" style="padding-left:12px;"><span style="left:auto;right:12px;">%</span></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="fd-rate" min="3" max="12" step="0.1" value="7.5"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Time Period (Years)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="fd-years" value="5" style="padding-left:12px;"><span style="left:auto;right:12px;">Yr</span></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="fd-years" min="1" max="20" step="1" value="5"></div>
+        </div>
+        <div class="toggle-group" id="fd-comp" style="margin-top:20px;">
+          <button data-value="4" class="active">Quarterly Review</button>
+          <button data-value="1">Yearly Compounding</button>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-row"><div class="result-label">Invested Amount</div><div class="result-val" id="res-inv">₹0</div></div>
+        <div class="result-row"><div class="result-label">Estimated Returns</div><div class="result-val" id="res-ret" style="color:var(--secondary);">₹0</div></div>
+        <div class="result-row" style="border-bottom:none; margin-top:8px;"><div class="result-label" style="font-weight:700;">Total Value</div><div class="result-val highlight" id="res-total">₹0</div></div>
+        <div class="chart-container"><canvas id="fdChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <script src="../main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let chart; let nPeriod = 4;
+      document.addEventListener('toggleChanged', (e) => { if(e.detail.group === 'fd-comp') { nPeriod = parseInt(e.detail.value); calculate(); } });
+      function calculate() {
+        const P = parseFloat(document.querySelector('.sync-range[data-sync="fd-amt"]').value);
+        const r = parseFloat(document.querySelector('.sync-range[data-sync="fd-rate"]').value) / 100;
+        const t = parseFloat(document.querySelector('.sync-range[data-sync="fd-years"]').value);
+        
+        const A = P * Math.pow((1 + (r / nPeriod)), (nPeriod * t));
+        const I = A - P;
+
+        document.getElementById('res-inv').innerText = window.formatReadableINR(P);
+        document.getElementById('res-ret').innerText = window.formatReadableINR(I);
+        document.getElementById('res-total').innerText = window.formatReadableINR(A);
+
+        if (chart) { chart.data.datasets[0].data = [P, I]; chart.update(); }
+        else {
+          const ctx = document.getElementById('fdChart').getContext('2d');
+          chart = new Chart(ctx, { type: 'doughnut', data: { labels: ['Principal', 'Interest'], datasets: [{ data: [P, I], backgroundColor: ['#00C896', '#FF6B35'], borderWidth:0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins:{legend:{position:'bottom'}} } });
+        }
+      }
+      window.calcUpdateCallbacks.push(calculate); calculate();
+    });
+  </script>
+</body>
+</html>

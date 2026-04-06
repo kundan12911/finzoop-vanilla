@@ -1,0 +1,27 @@
+{
+  "name": "finzoop-cms",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application for Finzoop",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@strapi/strapi": "4.20.0",
+    "@strapi/plugin-users-permissions": "4.20.0",
+    "@strapi/plugin-i18n": "4.20.0",
+    "@strapi/provider-upload-cloudinary": "4.20.0",
+    "pg": "^8.8.0",
+    "sqlite3": "5.1.6"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "strapi": {
+    "uuid": "df8afc83-cb84-4fe4-aa3d-d41a7d18bc3d"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "kind": "singleType",
+  "collectionName": "global_settings",
+  "info": {
+    "singularName": "global-setting",
+    "pluralName": "global-settings",
+    "displayName": "Global Setting",
+    "description": "Controls site-wide content."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "siteName": {
+      "type": "string",
+      "required": true
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "faviconUrl": {
+      "type": "string"
+    },
+    "primaryColor": {
+      "type": "string",
+      "default": "#1B4FD8"
+    },
+    "secondaryColor": {
+      "type": "string",
+      "default": "#00C896"
+    },
+    "accentColor": {
+      "type": "string",
+      "default": "#FF6B35"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "address": {
+      "type": "text"
+    },
+    "linkedinUrl": {
+      "type": "string"
+    },
+    "twitterUrl": {
+      "type": "string"
+    },
+    "instagramUrl": {
+      "type": "string"
+    },
+    "youtubeUrl": {
+      "type": "string"
+    },
+    "footerDisclaimer": {
+      "type": "richtext"
+    },
+    "amfiRegNumber": {
+      "type": "string"
+    },
+    "irdaiRegNumber": {
+      "type": "string"
+    },
+    "pfrdaRegNumber": {
+      "type": "string"
+    },
+    "maintenanceMode": {
+      "type": "boolean",
+      "default": false
+    },
+    "maintenanceBanner": {
+      "type": "string"
+    },
+    "googleAnalyticsId": {
+      "type": "string"
+    },
+    "metaPixelId": {
+      "type": "string"
+    },
+    "isPublished": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

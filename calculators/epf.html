@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EPF Calculator - Employee Provident Fund Calculator | Finzoop</title>
+  <meta name="description" content="Calculate your EPF corpus at retirement. Easy Employee Provident fund calculator considering your salary, EPF contribution and interest rate.">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="header"><div class="container nav-container"><a href="../index.html" class="logo">Fin<span>zoop</span></a></div></header>
+  <div class="container" style="padding-top: 120px;">
+    <h1 style="text-align: center; margin-bottom: 40px;">EPF Calculator</h1>
+    <div class="calc-container">
+      <div class="card">
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Basic Salary + DA (Monthly)</label>
+          <div class="number-input-wrap"><span>₹</span><input type="text" class="sync-input" data-sync="epf-sal" value="50000"></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="epf-sal" min="15000" max="1000000" step="5000" value="50000"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Current Age</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="epf-age" value="25" style="padding-left:12px;"></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="epf-age" min="18" max="58" step="1" value="25"></div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><label class="input-label">Expected Annual Salary Increment (%)</label>
+          <div class="number-input-wrap"><input type="text" class="sync-input" data-sync="epf-inc" value="8" style="padding-left:12px;"><span style="left:auto;right:12px;">%</span></div></div>
+          <div class="range-slider"><input type="range" class="sync-range" data-sync="epf-inc" min="0" max="20" step="1" value="8"></div>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-row"><div class="result-label">Total Employee Contribution</div><div class="result-val" id="res-emp">₹0</div></div>
+        <div class="result-row"><div class="result-label">Total Employer Contribution (EPF)</div><div class="result-val" id="res-empr">₹0</div></div>
+        <div class="result-row" style="border-bottom:none; margin-top:8px;"><div class="result-label" style="font-weight:700;">Corpus at age 58</div><div class="result-val highlight" id="res-total">₹0</div></div>
+        <div class="chart-container"><canvas id="epfChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <script src="../main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let chart;
+      function calculate() {
+        let sal = parseFloat(document.querySelector('.sync-range[data-sync="epf-sal"]').value);
+        const age = parseFloat(document.querySelector('.sync-range[data-sync="epf-age"]').value);
+        const inc = parseFloat(document.querySelector('.sync-range[data-sync="epf-inc"]').value) / 100;
+        const years = 58 - age;
+        const r = 8.25 / 100; // EPF Interest Rate
+        
+        let bal = 0; let totEmp = 0; let totEmpr = 0;
+        for (let y = 1; y <= years; y++) {
+          const empContrib = sal * 0.12 * 12; // 12% employee
+          const emprContrib = sal * 0.0367 * 12; // 3.67% employer, rest 8.33% goes to EPS
+          totEmp += empContrib; totEmpr += emprContrib;
+          bal += empContrib + emprContrib;
+          bal += bal * r; // yearly compounding approximation
+          sal += sal * inc; // increment for next year
+        }
+
+        document.getElementById('res-emp').innerText = window.formatReadableINR(totEmp);
+        document.getElementById('res-empr').innerText = window.formatReadableINR(totEmpr);
+        document.getElementById('res-total').innerText = window.formatReadableINR(bal);
+
+        if (chart) { chart.data.datasets[0].data = [totEmp, totEmpr, bal - totEmp - totEmpr]; chart.update(); }
+        else {
+          const ctx = document.getElementById('epfChart').getContext('2d');
+          chart = new Chart(ctx, { type: 'doughnut', data: { labels: ['Your Contrib.', 'Employer Contrib.', 'Interest Earned'], datasets: [{ data: [totEmp, totEmpr, bal - totEmp - totEmpr], backgroundColor: ['#1B4FD8', '#00C896', '#FF6B35'], borderWidth:0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '65%', plugins:{legend:{position:'bottom'}} } });
+        }
+      }
+      window.calcUpdateCallbacks.push(calculate); calculate();
+    });
+  </script>
+</body>
+</html>

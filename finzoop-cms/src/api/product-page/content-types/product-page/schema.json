@@ -1,0 +1,105 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_pages",
+  "info": {
+    "singularName": "product-page",
+    "pluralName": "product-pages",
+    "displayName": "Product Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "pageTitle",
+      "required": true
+    },
+    "productType": {
+      "type": "enumeration",
+      "enum": ["loan", "credit-card", "insurance", "mutual-fund", "nps", "investment", "other"]
+    },
+    "pageTitle": {
+      "type": "string",
+      "required": true
+    },
+    "metaDescription": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "metaKeywords": {
+      "type": "string"
+    },
+    "canonicalUrl": {
+      "type": "string"
+    },
+    "ogImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "heroHeading": {
+      "type": "string"
+    },
+    "heroSubheading": {
+      "type": "text"
+    },
+    "heroCTA": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "iconColor": {
+      "type": "string"
+    },
+    "cardDescription": {
+      "type": "string"
+    },
+    "mainContent": {
+      "type": "richtext"
+    },
+    "features": {
+      "type": "json"
+    },
+    "eligibilityTable": {
+      "type": "json"
+    },
+    "documentsRequired": {
+      "type": "json"
+    },
+    "rateTable": {
+      "type": "json"
+    },
+    "faqs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::faq.faq"
+    },
+    "relatedProducts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-page.product-page"
+    },
+    "sortOrder": {
+      "type": "integer"
+    },
+    "showInNav": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOnHomepage": {
+      "type": "boolean",
+      "default": true
+    },
+    "isPublished": {
+      "type": "boolean",
+      "default": true
+    },
+    "publishedAt": {
+      "type": "datetime"
+    }
+  }
+}

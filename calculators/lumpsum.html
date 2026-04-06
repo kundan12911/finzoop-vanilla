@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumpsum Calculator - Calculate Lumpsum Investment Returns | Finzoop</title>
+  <meta name="description" content="Calculate returns on lumpsum mutual fund investments online. Free lumpsum investment calculator by Finzoop.">
+  <link rel="canonical" href="https://finzoop.com/calculators/lumpsum.html">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    window.CMS_URL = 'http://localhost:1337';
+    window.CMS_TOKEN = '';
+  </script>
+  <script src="/cms.js" defer></script>
+  <script src="/publish-control.js" defer></script>
+  <script src="/cms-preview.js" defer></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="../index.html" class="logo">Fin<span>zoop</span></a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../calculators.html" class="nav-link active">Calculators <i data-lucide="chevron-down" class="icon-sm"></i></a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container" style="padding-top: 120px;" data-cms="calculator-meta" data-cms-slug="lumpsum-calculator">
+    <nav class="breadcrumb">
+      <a href="../index.html">Home</a><span class="separator">›</span>
+      <a href="../calculators.html">Calculators</a><span class="separator">›</span>
+      <span aria-current="page">Lumpsum Calculator</span>
+    </nav>
+    
+    <h1 style="text-align: center; margin-bottom: 40px;">Lumpsum Calculator</h1>
+
+    <div class="calc-container">
+      <!-- Left: Inputs -->
+      <div class="card">
+        <div class="input-group">
+          <div class="input-header">
+            <label class="input-label">Total Investment</label>
+            <div class="number-input-wrap">
+              <span>&#8377;</span>
+              <input type="text" class="sync-input" data-sync="lum-amt" value="100000">
+            </div>
+          </div>
+          <div class="range-slider">
+            <input type="range" class="sync-range" data-sync="lum-amt" min="1000" max="10000000" step="1000" value="100000">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-header">
+            <label class="input-label">Expected Return (%)</label>
+            <div class="number-input-wrap">
+              <input type="text" class="sync-input" data-sync="lum-rate" value="12" style="padding-left:12px; padding-right:28px;">
+              <span style="left:auto; right:12px;">%</span>
+            </div>
+          </div>
+          <div class="range-slider">
+            <input type="range" class="sync-range" data-sync="lum-rate" min="1" max="30" step="0.5" value="12">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-header">
+            <label class="input-label">Time Period (Years)</label>
+            <div class="number-input-wrap">
+              <input type="text" class="sync-input" data-sync="lum-years" value="10" style="padding-left:12px; padding-right:32px;">
+              <span style="left:auto; right:12px;">Yr</span>
+            </div>
+          </div>
+          <div class="range-slider">
+            <input type="range" class="sync-range" data-sync="lum-years" min="1" max="40" step="1" value="10">
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Results -->
+      <div class="result-card">
+        <div class="result-row">
+          <div class="result-label">Invested Amount</div>
+          <div class="result-val" id="res-inv">&#8377;0</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Estimated Returns</div>
+          <div class="result-val" id="res-ret">&#8377;0</div>
+        </div>
+        <div class="result-row" style="border-bottom:none; margin-top:8px;">
+          <div class="result-label" style="font-weight:700; color:var(--text-primary);">Total Value</div>
+          <div class="result-val highlight" id="res-total">&#8377;0</div>
+        </div>
+        <div class="chart-container">
+          <canvas id="lumChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="article-content" style="margin: 60px auto;">
+      <h2>What is Lumpsum Investment?</h2>
+      <p>A lumpsum investment is a one-time bulk investment in a mutual fund scheme. Instead of staggering your investments across multiple months (like a SIP), you deploy the entire available capital immediately.</p>
+      <h2>Lumpsum Formula</h2>
+      <p>The calculation is based on the compound interest formula: <code>FV = PV × (1 + r)^n</code> where PV is the principal, r is the annual rate, and n is the years.</p>
+    </article>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center;">&copy; 2025 Finzoop. All Rights Reserved.</div>
+  </footer>
+
+  <script src="../main.js"></script>
+  <script>if(window.lucide) { lucide.createIcons(); }</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let chart;
+
+      function calculate() {
+        const P = parseFloat(document.querySelector('.sync-range[data-sync="lum-amt"]').value);
+        const r = parseFloat(document.querySelector('.sync-range[data-sync="lum-rate"]').value) / 100;
+        const n = parseFloat(document.querySelector('.sync-range[data-sync="lum-years"]').value);
+
+        const totalVal = P * Math.pow(1 + r, n);
+        const estReturns = totalVal - P;
+
+        document.getElementById('res-inv').innerText = window.formatReadableINR(P);
+        document.getElementById('res-ret').innerText = window.formatReadableINR(estReturns);
+        document.getElementById('res-total').innerText = window.formatReadableINR(totalVal);
+
+        // Generate Year-by-year data
+        const labels = [];
+        const investedData = [];
+        const returnData = [];
+        for (let i = 1; i <= n; i++) {
+          labels.push('Yr ' + i);
+          investedData.push(P);
+          returnData.push(P * Math.pow(1 + r, i) - P);
+        }
+
+        updateChart(labels, investedData, returnData);
+      }
+
+      function updateChart(labels, investedData, returnData) {
+        if (chart) {
+          chart.data.labels = labels;
+          chart.data.datasets[0].data = investedData;
+          chart.data.datasets[1].data = returnData;
+          chart.update();
+          return;
+        }
+
+        const ctx = document.getElementById('lumChart').getContext('2d');
+        chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [
+              { label: 'Invested', data: investedData, backgroundColor: '#00C896', stack: 'Stack 0' },
+              { label: 'Returns', data: returnData, backgroundColor: '#FF6B35', stack: 'Stack 0' }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            scales: {
+              x: { stacked: true, grid: { display: false } },
+              y: { stacked: true, ticks: { callback: function(value) { return 'Rs. ' + (value/100000).toFixed(1) + 'L'; } } }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: { label: function(context) { return context.dataset.label + ': ' + window.formatINR(context.raw); } }
+              }
+            }
+          }
+        });
+      }
+
+      window.calcUpdateCallbacks.push(calculate);
+      calculate();
+    });
+  </script>
+</body>
+</html>

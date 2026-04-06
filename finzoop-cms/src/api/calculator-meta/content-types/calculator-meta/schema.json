@@ -1,0 +1,100 @@
+{
+  "kind": "collectionType",
+  "collectionName": "calculator_metas",
+  "info": {
+    "singularName": "calculator-meta",
+    "pluralName": "calculator-metas",
+    "displayName": "Calculator Meta"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "pageTitle",
+      "required": true
+    },
+    "calculatorType": {
+      "type": "enumeration",
+      "enum": ["sip", "lumpsum", "swp", "mf-returns", "ssy", "income-tax", "ppf", "epf", "fd", "rd", "emi", "gst", "xirr", "elss"]
+    },
+    "pageTitle": {
+      "type": "string",
+      "required": true
+    },
+    "metaTitle": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "metaKeywords": {
+      "type": "string"
+    },
+    "canonicalUrl": {
+      "type": "string"
+    },
+    "ogImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "icon": {
+      "type": "string"
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "introHeading": {
+      "type": "string"
+    },
+    "introText": {
+      "type": "richtext"
+    },
+    "howToUseContent": {
+      "type": "richtext"
+    },
+    "formulaExplanation": {
+      "type": "richtext"
+    },
+    "exampleContent": {
+      "type": "richtext"
+    },
+    "disclaimerText": {
+      "type": "text"
+    },
+    "defaultValues": {
+      "type": "json"
+    },
+    "faqs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::faq.faq"
+    },
+    "relatedCalculators": {
+      "type": "json"
+    },
+    "sortOrder": {
+      "type": "integer"
+    },
+    "showOnHub": {
+      "type": "boolean",
+      "default": true
+    },
+    "showInNav": {
+      "type": "boolean",
+      "default": true
+    },
+    "isPublished": {
+      "type": "boolean",
+      "default": true
+    },
+    "publishedAt": {
+      "type": "datetime"
+    }
+  }
+}
