@@ -2,11 +2,7 @@
 'use strict';
 
 /* ── Config ─────────────────────────────────────────── */
-const SPACE  = window.CONTENTFUL_SPACE_ID  || 'tabc1qgaltm6';
-const TOKEN  = window.CONTENTFUL_ACCESS_TOKEN
-             || 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-const CDN    =
-  `https://cdn.contentful.com/spaces/${SPACE}/environments/master/entries`;
+// window.cms is loaded from cms.js before this script
 
 /* ── Detect subfolder depth ─────────────────────────── */
 const IN_SUB = window.location.pathname
@@ -319,65 +315,40 @@ function buildFooter(data, settings) {
 </footer>`;
 }
 
-/* ── Fetch nav from Contentful ──────────────────────── */
-async function fetchCMSNav() {
-  try {
-    const p = new URLSearchParams({
-      content_type: 'navigationMenu',
-      'fields.identifier': 'main-nav',
-      limit: 1,
-      access_token: TOKEN,
-    });
-    const res = await fetch(`${CDN}?${p}`);
-    if (!res.ok) return null;
-    const d = await res.json();
-    if (!d.items?.length) return null;
-    const f = d.items[0].fields;
-    return {
-      mainItems:   f.mainMenuItems  || null,
-      ctaText:     f.ctaButtonLabel || NAV.ctaText,
-      ctaUrl:      f.ctaButtonUrl   || NAV.ctaUrl,
-      quickLinks:  f.footerCol2Links || null,
-      calcLinks:   f.footerCol3Links || null,
-      tagline:     f.footerTagline  || null,
-      disclaimer:  f.footerDisclaimer || null,
-      social: {
-        linkedin:  f.linkedinUrl  || '#',
-        twitter:   f.twitterUrl   || '#',
-        instagram: f.instagramUrl || '#',
-        youtube:   f.youtubeUrl   || '#',
-      },
-    };
-  } catch (e) {
-    return null;
-  }
+/* ── CMS Integration (via cms.js) ───────────────────── */
+async function loadStrapiNav() {
+  const data = await window.cms.fetchNavigation();
+  if (!data) return null;
+  return {
+    ctaText:     data.ctaButtonLabel || NAV.ctaText,
+    ctaUrl:      data.ctaButtonUrl   || NAV.ctaUrl,
+    mainItems:   data.mainMenuItems  || null,
+    quickLinks:  data.footerCol1Links || null,
+    calcLinks:   data.footerCol2Links || null,
+    tagline:     data.footerTagline  || null,
+    disclaimer:  data.footerDisclaimer || null,
+    social: {
+      linkedin:  data.linkedinUrl  || '#',
+      twitter:   data.twitterUrl   || '#',
+      instagram: data.instagramUrl || '#',
+      youtube:   data.youtubeUrl   || '#',
+    },
+  };
 }
 
-async function fetchCMSSettings() {
-  try {
-    const p = new URLSearchParams({
-      content_type: 'globalSetting',
-      limit: 1,
-      access_token: TOKEN,
-    });
-    const res = await fetch(`${CDN}?${p}`);
-    if (!res.ok) return null;
-    const d = await res.json();
-    if (!d.items?.length) return null;
-    const f = d.items[0].fields;
-    return {
-      contact: {
-        email:   f.email   || NAV.contact.email,
-        phone:   f.phone   || NAV.contact.phone,
-        address: f.address || NAV.contact.address,
-      },
-      primaryColor:   f.primaryColor,
-      secondaryColor: f.secondaryColor,
-      accentColor:    f.accentColor,
-    };
-  } catch (e) {
-    return null;
-  }
+async function loadStrapiSettings() {
+  const data = await window.cms.fetchGlobalSettings();
+  if (!data) return null;
+  return {
+    contact: {
+      email:   data.email   || NAV.contact.email,
+      phone:   data.phone   || NAV.contact.phone,
+      address: data.address || NAV.contact.address,
+    },
+    primaryColor:   data.primaryColor,
+    secondaryColor: data.secondaryColor,
+    accentColor:    data.accentColor,
+  };
 }
 
 /* ── Attach hamburger toggle ────────────────────────── */
@@ -441,8 +412,8 @@ async function init() {
 
   /* Step 2: fetch CMS data and upgrade silently */
   const [cmsNav, cmsSettings] = await Promise.all([
-    fetchCMSNav(),
-    fetchCMSSettings(),
+    loadStrapiNav(),
+    loadStrapiSettings(),
   ]);
 
   if (cmsNav || cmsSettings) {

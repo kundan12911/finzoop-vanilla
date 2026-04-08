@@ -3,33 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invest in NPS Online | National Pension System | Finzoop</title>
-  <meta name="description" content="Secure your retirement with the National Pension System (NPS). Save up to ₹50,000 extra in taxes u/s 80CCD(1B). Calculate your pension corpus today.">
-  <link rel="canonical" href="https://finzoop.com/nps.html">
+  <title>National Pension System (NPS) | Finzoop</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
   <script src="products.js"></script>
   <script src="page-sections.js"></script>
 </head>
 <body data-cms-page="nps" data-product-page="nps">
 
-
-  <div class="container" style="padding-top: 120px;">
+  <div class="container" style="padding-top: 120px;" data-cms="page-seo" data-cms-slug="nps-page">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="index.html">Home</a><span class="separator">›</span><span aria-current="page">NPS</span>
     </nav>
   </div>
 
-  <section class="section" data-cms="hero" data-cms-id="nps-hero">
+  <section class="hero gradient-bg" style="padding: 60px 0 80px;" data-cms="hero" data-cms-id="nps-hero">
     <div class="container">
-      <h1 style="text-align: center;" data-hero="heading">National Pension System (NPS)</h1>
-      <p style="text-align: center; margin-bottom: 40px; max-width: 600px; margin: 0 auto 40px;" data-hero="subheading">The smartest way to build your retirement wealth while enjoying exclusive tax benefits.</p>
+      <h1 data-hero="heading">Retire with Confidence.</h1>
+      <p data-hero="subheading">Secure your retirement with the National Pension System. Tax benefits, long-term growth, and financial peace of mind.</p>
     </div>
   </section>
 
@@ -44,48 +40,14 @@
     </div>
   </section>
 
-  <!-- NPS Calc Embedded -->
-  <section class="section" style="background: var(--card-bg);">
+  <section class="section" data-cms="faqs" data-cms-category="nps">
     <div class="container" style="max-width: 800px;">
-      <h2 style="text-align: center; margin-bottom: 40px;">Estimate Your Retirement Corpus</h2>
-      <div class="card">
-        <div class="input-group">
-          <label class="input-label">Monthly Contribution (₹)</label>
-          <input type="number" id="nps-monthly" value="5000" style="width:100%; padding: 10px; margin-top:8px;">
-        </div>
-        <div style="display: flex; gap: 20px;">
-          <div class="input-group" style="flex:1;">
-            <label class="input-label">Current Age</label>
-            <input type="number" id="nps-age" value="30" style="width:100%; padding: 10px; margin-top:8px;">
-          </div>
-          <div class="input-group" style="flex:1;">
-            <label class="input-label">Expected Return (%)</label>
-            <input type="number" id="nps-ret" value="10" style="width:100%; padding: 10px; margin-top:8px;">
-          </div>
-        </div>
-        <div style="background: var(--light-bg); padding: 20px; border-radius: 12px; margin-top: 20px; text-align: center;">
-          <div style="font-size: 14px; color: var(--text-secondary);">Estimated Corpus at Age 60</div>
-          <div id="nps-corpus" style="font-size: 36px; font-weight: 800; color: var(--primary);">₹1.13 Cr</div>
-        </div>
+      <h2 style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
+      <div class="faq-accordion" data-faqs="list">
+        <!-- FAQs injected by page-sections.js -->
       </div>
     </div>
-    <script>
-      function updateNPS() {
-        const P = parseFloat(document.getElementById('nps-monthly').value) || 0;
-        const age = parseFloat(document.getElementById('nps-age').value) || 30;
-        const ret = parseFloat(document.getElementById('nps-ret').value) || 10;
-        const years = Math.max(0, 60 - age);
-        const n = years * 12;
-        const i = ret / 12 / 100;
-        const val = i===0 ? P*n : P * ((Math.pow(1+i, n) - 1)/i) * (1+i);
-        document.getElementById('nps-corpus').innerText = window.formatReadableINR ? window.formatReadableINR(val) : '₹'+val.toFixed(0);
-      }
-      document.getElementById('nps-monthly').addEventListener('input', updateNPS);
-      document.getElementById('nps-age').addEventListener('input', updateNPS);
-      document.getElementById('nps-ret').addEventListener('input', updateNPS);
-    </script>
   </section>
-
 
   <script src="main.js"></script>
 </body>

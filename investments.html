@@ -3,32 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fixed Deposits, Bonds & Investment Products | Finzoop</title>
-  <meta name="description" content="Compare FD rates and invest in corporate bonds and G-secs. Guaranteed returns for conservative investors.">
+  <title>Investment Products & Wealth Management | Finzoop</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
   <script src="products.js"></script>
   <script src="page-sections.js"></script>
 </head>
 <body data-cms-page="investments" data-product-page="investments">
 
-
   <div class="container" style="padding-top: 120px;" data-cms="page-seo" data-cms-slug="investments-page">
-    <nav class="breadcrumb">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="index.html">Home</a><span class="separator">›</span><span aria-current="page">Investments</span>
     </nav>
   </div>
 
-  <section class="section" data-cms="hero" data-cms-id="investments-hero">
+  <section class="hero gradient-bg" style="padding: 60px 0 80px;" data-cms="hero" data-cms-id="investments-hero">
     <div class="container">
-      <h1 style="text-align: center;" data-hero="heading">Fixed Income Investments</h1>
-      <p style="text-align: center; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;" data-hero="subheading">Secure your capital with predictable, guaranteed returns through FDs, Corporate Bonds, and Government Securities.</p>
+      <h1 data-hero="heading">Grow Your Wealth.</h1>
+      <p data-hero="subheading">From Fixed Deposits to Gold and Bonds, explore the best investment options tailored to your risk profile.</p>
     </div>
   </section>
 
@@ -43,8 +40,15 @@
     </div>
   </section>
 
+  <section class="section" data-cms="faqs" data-cms-category="investments">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
+      <div class="faq-accordion" data-faqs="list">
+        <!-- FAQs injected by page-sections.js -->
+      </div>
+    </div>
+  </section>
 
   <script src="main.js"></script>
-  <script>if(window.lucide){lucide.createIcons();}</script>
 </body>
 </html>

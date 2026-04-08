@@ -3,37 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loading Post... | Finzoop</title>
-  <meta name="description" content="Read our latest financial insights and guides on the Finzoop blog.">
+  <title>Article | Finzoop</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
-  <!-- Contentful Rich Text Renderer -->
-  <script src="https://unpkg.com/@contentful/rich-text-html-renderer@16.0.0/dist/rich-text-html-renderer.es5.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
-  <script src="blog.js" defer></script>
 </head>
 <body data-cms-page="blog-post">
 
   <main class="container" style="padding-top: 120px; padding-bottom: 80px;">
-    <!-- Dynamic Content Loading Area -->
     <div data-cms="blog-post">
       <div style="max-width:780px;margin:0 auto;">
         <div class="skeleton-heading" style="height:48px;margin-bottom:24px;"></div>
         <div class="skeleton-text" style="height:20px;margin-bottom:12px;"></div>
         <div class="skeleton-text" style="height:20px;margin-bottom:12px;"></div>
         <div class="skeleton-image" style="height:400px;margin-bottom:32px;"></div>
-        <div class="skeleton-text"></div>
       </div>
     </div>
   </main>
 
-
+  <script src="blog.js"></script>
   <script src="main.js"></script>
-  <script>if(window.lucide){lucide.createIcons();}</script>
 </body>
 </html>

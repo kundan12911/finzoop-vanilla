@@ -6,34 +6,77 @@
   <title>Contact Us | Finzoop</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    // production URL for Strapi
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
   <script src="page-sections.js"></script>
 </head>
 <body data-cms-page="contact">
   <div class="container" style="padding-top: 120px; max-width: 600px;" data-cms="page-seo" data-cms-slug="contact-page">
     <h1 style="text-align:center;">Contact Us</h1>
-    <form class="card" style="margin-top:40px;">
+    <form id="contactForm" class="card" style="margin-top:40px;">
       <div class="input-group">
         <label class="input-label">Name</label>
-        <input type="text" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px;">
+        <input type="text" id="name" required style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px;">
       </div>
       <div class="input-group">
         <label class="input-label">Email</label>
-        <input type="email" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px;">
+        <input type="email" id="email" required style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px;">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Subject</label>
+        <input type="text" id="subject" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px;">
       </div>
       <div class="input-group">
         <label class="input-label">Message</label>
-        <textarea style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; height:100px;"></textarea>
+        <textarea id="message" required style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; height:100px;"></textarea>
       </div>
-      <button class="btn btn-primary" style="width:100%;">Send Message</button>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+      <p id="formStatus" style="margin-top:15px; text-align:center; display:none;"></p>
     </form>
   </div>
+
   <script src="main.js"></script>
-  <script>if(window.lucide){lucide.createIcons();}</script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      const status = document.getElementById('formStatus');
+      
+      const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        subject: document.getElementById('subject').value || 'Contact Web Inquiry',
+        message: document.getElementById('message').value
+      };
+
+      try {
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+        status.style.display = 'block';
+        status.textContent = 'Submitting...';
+        status.style.color = 'var(--text-secondary)';
+
+        const result = await window.cms.submitContact(data);
+        
+        if (result.data || result.id) {
+          status.textContent = 'Thank you! Your message has been sent.';
+          status.style.color = 'green';
+          e.target.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (err) {
+        status.textContent = 'Error: ' + err.message;
+        status.style.color = 'red';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
+    });
+  </script>
 </body>
 </html>

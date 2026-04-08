@@ -3,44 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Finzoop - Loans, Insurance, Mutual Funds & Investments in India</title>
-  <meta name="description" content="Finzoop helps you compare and apply for the best loans, credit cards, insurance, mutual funds and investments online. Free tools and expert guidance.">
-  <meta name="keywords" content="loans, insurance, mutual funds, credit cards, investments, SIP calculator, India">
-  <link rel="canonical" href="https://finzoop.com/">
+  <title>Finzoop - Smart Financial Decisions Start Here</title>
   <link rel="stylesheet" href="style.css">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Finzoop - Smart Financial Decisions Start Here">
-  <meta property="og:description" content="Compare loans, insurance, mutual funds and investments online. Free tools and expert guidance.">
-  <meta property="og:url" content="https://finzoop.com/">
-  <meta property="og:type" content="website">
-
-  <!-- Schema.org Organization-->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Finzoop",
-    "url": "https://finzoop.com",
-    "logo": "https://finzoop.com/logo.png",
-    "sameAs": [
-      "https://twitter.com/finzoop",
-      "https://linkedin.com/company/finzoop"
-    ]
-  }
-  </script>
-
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
   <script src="page-sections.js"></script>
 </head>
 <body data-cms-page="homepage">
-
 
   <!-- HERO -->
   <section class="hero gradient-bg" data-cms="hero" data-cms-id="homepage-hero">
@@ -53,10 +26,7 @@
       </div>
       
       <div class="trust-bar" data-hero="trust-bar">
-        <div class="trust-item"><strong>₹500Cr+</strong> Disbursed</div>
-        <div class="trust-item"><strong>1L+</strong> Happy Users</div>
-        <div class="trust-item"><strong>50+</strong> Partners</div>
-        <div class="trust-item"><strong>AMFI</strong> Registered</div>
+        <!-- Injected by page-sections.js -->
       </div>
     </div>
   </section>
@@ -92,7 +62,6 @@
       <p style="text-align: center; max-width: 600px; margin: 0 auto 40px;">Find exactly what you need to grow your wealth and protect your family.</p>
       
       <div class="grid-3">
-        <!-- Static products as fallback -->
         <a href="loans.html" class="card" style="display: block;">
           <div class="icon-box"><i data-lucide="banknote" class="icon-xl"></i></div>
           <h3>Loans</h3>
@@ -102,75 +71,28 @@
         <a href="credit-cards.html" class="card" style="display: block;">
           <div class="icon-box"><i data-lucide="credit-card" class="icon-xl"></i></div>
           <h3>Credit Cards</h3>
-          <p>Cards tailored for rewards, cashback, and travel benefits matching your lifestyle.</p>
+          <p>Exclusive rewards, cashback, and travel benefits across top bank cards.</p>
           <span style="font-weight: 600; color: var(--primary);">Learn More <i data-lucide="arrow-right" class="icon-sm"></i></span>
         </a>
         <a href="insurance.html" class="card" style="display: block;">
           <div class="icon-box"><i data-lucide="shield-check" class="icon-xl"></i></div>
           <h3>Insurance</h3>
-          <p>Comprehensive Life, Health, and Motor insurance plans to secure your future.</p>
+          <p>Life, Health, and Motor insurance plans with maximum coverage at lowest premiums.</p>
           <span style="font-weight: 600; color: var(--primary);">Learn More <i data-lucide="arrow-right" class="icon-sm"></i></span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
   <section class="section" data-cms="testimonials">
     <div class="container">
-      <h2 style="text-align: center; margin-bottom: 40px;">What Our Customers Say</h2>
+      <h2 style="text-align: center; margin-bottom: 40px;">What Our Users Say</h2>
       <div class="grid-3" data-testimonials="grid">
-        <!-- Testimonials injected by page-sections.js -->
+        <!-- Injected by page-sections.js -->
       </div>
     </div>
   </section>
-
-  <!-- PARTNERS -->
-  <section class="section" style="background: var(--light-bg);" data-cms="partners">
-    <div class="container">
-      <h2 style="text-align: center; margin-bottom: 40px;">Our Banking Partners</h2>
-      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: center;" data-partners="grid">
-        <!-- Partners injected by page-sections.js -->
-      </div>
-    </div>
-  </section>
-
-  <!-- CALCULATORS PREVIEW -->
-  <section class="section" data-cms="calculator-hub">
-    <div class="container">
-      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
-        <div>
-          <h2>Plan Your Finances</h2>
-          <p style="margin:0;">Use our free financial calculators to make data-backed decisions.</p>
-        </div>
-        <a href="calculators.html" class="btn btn-outline desktop-only">View All 14 Calculators</a>
-      </div>
-
-      <div class="grid-3">
-        <div class="card" style="padding: 24px;">
-          <h3 style="font-size: 20px; display: flex; align-items: center; gap:12px;"><i data-lucide="trending-up" class="icon-lg"></i> SIP Calculator</h3>
-          <p class="small">Calculate wealth creation through regular mutual fund investments.</p>
-          <a href="calculators/sip.html" class="btn btn-outline" style="width: 100%; padding: 8px;">Calculate Now <i data-lucide="arrow-right" class="icon-sm"></i></a>
-        </div>
-        <div class="card" style="padding: 24px;">
-          <h3 style="font-size: 20px; display: flex; align-items: center; gap:12px;"><i data-lucide="house" class="icon-lg"></i> EMI Calculator</h3>
-          <p class="small">Compute your monthly home, car, or personal loan instalments.</p>
-          <a href="calculators/emi.html" class="btn btn-outline" style="width: 100%; padding: 8px;">Calculate Now <i data-lucide="arrow-right" class="icon-sm"></i></a>
-        </div>
-        <div class="card" style="padding: 24px;">
-          <h3 style="font-size: 20px; display: flex; align-items: center; gap:12px;"><i data-lucide="calculator" class="icon-lg"></i> Income Tax Calculator</h3>
-          <p class="small">Compare Old vs New regime for FY 2025-26 and optimize taxes.</p>
-          <a href="calculators/income-tax.html" class="btn btn-outline" style="width: 100%; padding: 8px;">Calculate Now <i data-lucide="arrow-right" class="icon-sm"></i></a>
-        </div>
-      </div>
-      <div style="text-align: center; margin-top: 32px;" class="mobile-only">
-        <a href="calculators.html" class="btn btn-outline">View All 14 Calculators</a>
-      </div>
-    </div>
-  </section>
-
 
   <script src="main.js"></script>
-  <script>if(window.lucide) lucide.createIcons();</script>
 </body>
 </html>

@@ -3,22 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compare & Apply for Best Credit Cards in India 2025 | Finzoop</title>
-  <meta name="description" content="Find the best credit cards in India. Filter by cashback, travel, shopping rewards. Check eligibility instantly and apply online for free.">
-  <meta name="keywords" content="credit cards India, best credit cards 2025, cashback cards, travel cards, free credit card">
+  <title>Best Credit Cards in India | Finzoop</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
   <script src="products.js"></script>
   <script src="page-sections.js"></script>
 </head>
 <body data-cms-page="credit-cards" data-product-page="credit-cards">
-
 
   <div class="container" style="padding-top: 120px;" data-cms="page-seo" data-cms-slug="credit-cards-page">
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -26,10 +22,10 @@
     </nav>
   </div>
 
-  <section class="section" data-cms="hero" data-cms-id="credit-cards-hero">
+  <section class="hero gradient-bg" style="padding: 60px 0 80px;" data-cms="hero" data-cms-id="credit-cards-hero">
     <div class="container">
-      <h1 style="text-align: center; margin-bottom: 10px;" data-hero="heading">Find Your Perfect Credit Card</h1>
-      <p style="text-align: center; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;" data-hero="subheading">Compare 50+ credit cards across top banks. Maximize your rewards, lounge access, and cashback.</p>
+      <h1 data-hero="heading">The Perfect Card for Your Lifestyle.</h1>
+      <p data-hero="subheading">Maximize rewards, cashback, and travel perks. Compare top credit cards from India's leading banks.</p>
     </div>
   </section>
 
@@ -44,23 +40,15 @@
     </div>
   </section>
 
-  <!-- How to Choose -->
-  <section class="section" style="background: var(--card-bg);">
-    <div class="container">
-      <h2 style="text-align: center; margin-bottom: 40px;">How to Choose the Right Credit Card</h2>
-      <div class="article-content" style="margin: 0 auto;">
-        <p>Choosing a credit card depends entirely on your spending habits. If you travel frequently by air, a travel card offering lounge access and airmiles makes sense even if it has an annual fee. If you spend mostly on groceries and utility bills, a cashback card offering straight 5% cashback will provide the best absolute returns.</p>
-        <ul>
-          <li><strong>Check your credit score:</strong> Premium cards usually require a CIBIL score of 750+.</li>
-          <li><strong>Analyse your major spends:</strong> Don't pay for premium travel benefits if you rarely fly.</li>
-          <li><strong>Look at the annual fee waiver:</strong> Most cards waive the fee if you spend above a certain threshold annually.</li>
-        </ul>
+  <section class="section" data-cms="faqs" data-cms-category="credit-cards">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
+      <div class="faq-accordion" data-faqs="list">
+        <!-- FAQs injected by page-sections.js -->
       </div>
     </div>
   </section>
 
-
   <script src="main.js"></script>
-  <script>if(window.lucide){lucide.createIcons();}</script>
 </body>
 </html>

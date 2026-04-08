@@ -3,13 +3,7 @@
    Reads from Contentful productCategory + productItem.     ── */
 
 const PROD = {
-  spaceId: window.CONTENTFUL_SPACE_ID  || 'tabc1qgaltm6',
-  token:   window.CONTENTFUL_ACCESS_TOKEN
-         || 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I',
-  get base() {
-    return `https://cdn.contentful.com/spaces/${this.spaceId}`
-         + `/environments/master/entries`;
-  },
+  // window.cms is loaded from cms.js before this script
 
   // Detect current page type from <body> data attribute
   // or URL path
@@ -28,43 +22,17 @@ const PROD = {
 
   // Fetch categories for current page
   async fetchCategories(pageType) {
-    const params = new URLSearchParams({
-      content_type:        'productCategory',
-      'fields.pageType':   pageType,
-      'fields.isPublished': 'true',
-      order:               'fields.sortOrder',
-      access_token:        this.token
-    });
-    const res = await fetch(`${this.base}?${params}`);
-    if (!res.ok) throw new Error('Categories fetch failed');
-    return res.json();
+    return await window.cms.fetchProductCategories(pageType);
   },
 
   // Fetch products for current page, optionally by category
   async fetchProducts(pageType, categoryId = null) {
-    const params = new URLSearchParams({
-      content_type:        'productItem',
-      'fields.pageType':   pageType,
-      'fields.isPublished':'true',
-      order:               'fields.sortOrder',
-      include:             '2',
-      limit:               '50',
-      access_token:        this.token
-    });
-    if (categoryId) {
-      params.set('fields.category.sys.id', categoryId);
-    }
-    const res = await fetch(`${this.base}?${params}`);
-    if (!res.ok) throw new Error('Products fetch failed');
-    return res.json();
+    return await window.cms.fetchProductItems(pageType, categoryId);
   },
 
-  // Resolve linked asset URL
-  resolveAsset(assetId, includes) {
-    if (!assetId || !includes?.Asset) return null;
-    const a = includes.Asset.find(x => x.sys.id === assetId);
-    return a?.fields?.file?.url
-      ? 'https:' + a.fields.file.url : null;
+  // Resolve linked asset URL (Not needed with Strapi, urls are absolute)
+  resolveAsset(item) {
+    return item?.attributes?.url || null;
   },
 
   // Render category tabs
@@ -74,12 +42,12 @@ const PROD = {
     if (!container) return;
 
     container.innerHTML = categories.map(cat => {
-      const f = cat.fields;
-      const isActive = cat.sys.id === activeId;
+      const f = cat.attributes;
+      const isActive = cat.id === activeId;
       return `
         <button
           class="product-tab${isActive ? ' active' : ''}"
-          data-cat-id="${cat.sys.id}"
+          data-cat-id="${cat.id}"
           data-cat-slug="${f.slug}"
           style="${isActive
             ? `border-color:${f.color || 'var(--primary)'};
@@ -108,7 +76,7 @@ const PROD = {
   },
 
   // Render product grid
-  renderProducts(items, includes, pageType) {
+  renderProducts(items, pageType) {
     const container = document.querySelector(
       '[data-cms="product-grid"]');
     if (!container) return;
@@ -137,10 +105,8 @@ const PROD = {
     container.style.transition = 'opacity 0.2s';
 
     const cards = items.map(item => {
-      const f = item.fields;
-      const logoUrl = f.logo?.sys?.id
-        ? this.resolveAsset(f.logo.sys.id, includes)
-        : null;
+      const f = item.attributes;
+      const logoUrl = f.logo?.data?.attributes?.url || null;
 
       const highlightsHtml = (f.highlights || [])
         .map(h => `
@@ -276,13 +242,12 @@ const PROD = {
     }
 
     try {
-      const catsData = await this.fetchCategories(pageType);
-      const categories = catsData.items || [];
+      const categories = await this.fetchCategories(pageType);
 
       // Find default category
-      const defaultCat = categories.find(c => c.fields.isDefault)
+      const defaultCat = categories.find(c => c.attributes.isDefault)
                       || categories[0];
-      const defaultCatId = defaultCat?.sys?.id || null;
+      const defaultCatId = defaultCat?.id || null;
 
       // Fetch initial products
       const prodsData = await this.fetchProducts(
@@ -304,13 +269,13 @@ const PROD = {
           const newProds = await this.fetchProducts(
             pageType, catId);
           this.renderProducts(
-            newProds.items, newProds.includes, pageType);
+            newProds, pageType);
         }
       );
 
       // Render initial products
       this.renderProducts(
-        prodsData.items, prodsData.includes, pageType);
+        prodsData, pageType);
 
     } catch (err) {
       console.error('[Products] Init error:', err);

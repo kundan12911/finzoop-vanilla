@@ -3,40 +3,7 @@
    Every section has a data-cms attribute for targeting.   ── */
 
 const SECTIONS = {
-  spaceId: window.CONTENTFUL_SPACE_ID  || 'tabc1qgaltm6',
-  token:   window.CONTENTFUL_ACCESS_TOKEN
-         || 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I',
-
-  get base() {
-    return `https://cdn.contentful.com/spaces/${this.spaceId}`
-         + `/environments/master/entries`;
-  },
-
-  resolveAsset(id, includes) {
-    if (!id || !includes?.Asset) return null;
-    const a = includes.Asset.find(x => x.sys.id === id);
-    return a?.fields?.file?.url
-      ? 'https:' + a.fields.file.url : null;
-  },
-
-  async fetch(params, cacheKey) {
-    const cached = sessionStorage.getItem('pgs_' + cacheKey);
-    if (cached) {
-      try { return JSON.parse(cached); } catch(e) {}
-    }
-    const p = new URLSearchParams({
-      ...params, access_token: this.token });
-    const res = await fetch(`${this.base}?${p}`);
-    if (!res.ok) throw new Error(`API ${res.status}`);
-    const data = await res.json();
-    try {
-      sessionStorage.setItem(
-        'pgs_' + cacheKey,
-        JSON.stringify(data)
-      );
-    } catch(e) {}
-    return data;
-  },
+  // window.cms is loaded from cms.js before this script
 
   // ── HERO SECTION ───────────────────────────────────────
   async renderHero(identifier) {
@@ -45,20 +12,10 @@ const SECTIONS = {
     if (!el) return;
 
     try {
-      const data = await this.fetch({
-        content_type: 'heroBanner',
-        'fields.identifier': identifier,
-        limit: 1,
-        include: 2
-      }, `hero-${identifier}`);
+      const f = await window.cms.fetchHeroBanner(identifier);
+      if (!f) return;
 
-      if (!data.items?.length) return;
-
-      const f = data.items[0].fields;
-      const bgImage = f.backgroundImage?.sys?.id
-        ? this.resolveAsset(
-            f.backgroundImage.sys.id, data.includes)
-        : null;
+      const bgImage = f.backgroundImage?.data?.attributes?.url || null;
 
       // Update hero heading
       const h1 = el.querySelector('[data-hero="heading"]');
@@ -130,26 +87,16 @@ const SECTIONS = {
     if (!el) return;
 
     try {
-      const data = await this.fetch({
-        content_type:             'testimonial',
-        'fields.isPublished':     'true',
-        'fields.showOnHomepage':  'true',
-        order:                    'fields.sortOrder',
-        include:                  2
-      }, 'testimonials');
-
-      const items = data.items || [];
-      if (!items.length) return;
+      const testimonialItems = await window.cms.fetchTestimonials();
+      if (!testimonialItems.length) return;
 
       const container = el.querySelector(
         '[data-testimonials="grid"]');
       if (!container) return;
 
-      container.innerHTML = items.map(item => {
-        const f = item.fields;
-        const photoUrl = f.avatar?.sys?.id
-          ? this.resolveAsset(f.avatar.sys.id, data.includes)
-          : null;
+      container.innerHTML = testimonialItems.map(item => {
+        const f = item.attributes;
+        const photoUrl = f.avatar?.data?.attributes?.url || null;
         const initials = f.initials
           || f.name?.split(' ')
                .map(n => n[0]).join('').toUpperCase()
@@ -218,26 +165,16 @@ const SECTIONS = {
     if (!el) return;
 
     try {
-      const data = await this.fetch({
-        content_type:            'partner',
-        'fields.isPublished':    'true',
-        'fields.showOnHomepage': 'true',
-        order:                   'fields.sortOrder',
-        include:                 2
-      }, 'partners');
-
-      const items = data.items || [];
-      if (!items.length) return;
+      const partnerItems = await window.cms.fetchPartners();
+      if (!partnerItems.length) return;
 
       const container = el.querySelector(
         '[data-partners="grid"]');
       if (!container) return;
 
-      container.innerHTML = items.map(item => {
-        const f = item.fields;
-        const logoUrl = f.logo?.sys?.id
-          ? this.resolveAsset(f.logo.sys.id, data.includes)
-          : null;
+      container.innerHTML = partnerItems.map(item => {
+        const f = item.attributes;
+        const logoUrl = f.logo?.data?.attributes?.url || null;
         return logoUrl ? `
           <div class="partner-logo-item">
             <img src="${logoUrl}"
@@ -263,65 +200,17 @@ const SECTIONS = {
   // ── PAGE SEO ───────────────────────────────────────────
   async injectSEO(pageIdentifier) {
     try {
-      const data = await this.fetch({
-        content_type:           'pageSeo',
-        'fields.pageIdentifier': pageIdentifier,
-        limit: 1,
-        include: 2
-      }, `seo-${pageIdentifier}`);
-
-      if (!data.items?.length) return;
-      const f = data.items[0].fields;
-
-      if (f.metaTitle) document.title = f.metaTitle;
-
-      const setMeta = (name, content) => {
-        if (!content) return;
-        let el = document.querySelector(
-          `meta[name="${name}"]`);
-        if (!el) {
-          el = document.createElement('meta');
-          el.name = name;
-          document.head.appendChild(el);
-        }
-        el.content = content;
-      };
-      const setOg = (prop, content) => {
-        if (!content) return;
-        let el = document.querySelector(
-          `meta[property="${prop}"]`);
-        if (!el) {
-          el = document.createElement('meta');
-          el.setAttribute('property', prop);
-          document.head.appendChild(el);
-        }
-        el.content = content;
-      };
-
-      setMeta('description', f.metaDescription);
-      setMeta('keywords',    f.metaKeywords);
-      setOg('og:title',       f.ogTitle || f.metaTitle);
-      setOg('og:description', f.ogDescription);
-
-      const ogImg = f.ogImage?.sys?.id
-        ? this.resolveAsset(f.ogImage.sys.id, data.includes)
-        : null;
-      if (ogImg) setOg('og:image', ogImg);
-
-      if (f.canonicalUrl) {
-        let link = document.querySelector('link[rel="canonical"]');
-        if (!link) {
-          link = document.createElement('link');
-          link.rel = 'canonical';
-          document.head.appendChild(link);
-        }
-        link.href = f.canonicalUrl;
-      }
-
+      const f = await window.cms.fetchPageSeo(pageIdentifier);
+      if (!f) return;
+      window.cms.injectSEO(f);
+      
+      // Handle JSON-LD separately if needed
       if (f.customJsonLd) {
         const script = document.createElement('script');
         script.type = 'application/ld+json';
-        script.textContent = f.customJsonLd;
+        script.textContent = (typeof f.customJsonLd === 'object') 
+          ? JSON.stringify(f.customJsonLd) 
+          : f.customJsonLd;
         document.head.appendChild(script);
       }
     } catch(e) {
@@ -336,22 +225,14 @@ const SECTIONS = {
     if (!el) return;
 
     try {
-      const data = await this.fetch({
-        content_type:         'faq',
-        'fields.category':    category,
-        'fields.isPublished': 'true',
-        order:                'fields.sortOrder',
-        limit:                20
-      }, `faqs-${category}`);
-
-      const items = data.items || [];
-      if (!items.length) return;
+      const faqItems = await window.cms.fetchFaqs(category);
+      if (!faqItems.length) return;
 
       const container = el.querySelector('[data-faqs="list"]');
       if (!container) return;
 
-      container.innerHTML = items.map((item, i) => {
-        const f = item.fields;
+      container.innerHTML = faqItems.map((item, i) => {
+        const f = item.attributes;
         const answer = typeof f.answer === 'object'
           && f.answer?.nodeType === 'document'
           ? extractPlainText(f.answer)
@@ -385,14 +266,8 @@ const SECTIONS = {
     if (!el) return;
 
     try {
-      const data = await this.fetch({
-        content_type: 'calculatorMeta',
-        'fields.slug': slug,
-        limit: 1, include: 2
-      }, `calc-${slug}`);
-
-      if (!data.items?.length) return;
-      const f = data.items[0].fields;
+      const f = await window.cms.fetchCalculatorMeta(slug);
+      if (!f) return;
 
       // Update article section if present
       const intro = el.querySelector('[data-calc="intro"]');

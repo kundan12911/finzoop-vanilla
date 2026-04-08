@@ -3,33 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invest in Mutual Funds Online | SIP from ₹500 | Finzoop</title>
-  <meta name="description" content="Compare and invest in top-performing mutual funds in India. Start a SIP with as low as ₹500. Zero commission direct plans.">
-  <link rel="canonical" href="https://finzoop.com/mutual-funds.html">
+  <title>Mutual Funds & Investments | Finzoop</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
   <script src="products.js"></script>
   <script src="page-sections.js"></script>
 </head>
 <body data-cms-page="mutual-funds" data-product-page="mutual-funds">
 
-
-  <div class="container" style="padding-top: 120px;">
+  <div class="container" style="padding-top: 120px;" data-cms="page-seo" data-cms-slug="mutual-funds-page">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="index.html">Home</a><span class="separator">›</span><span aria-current="page">Mutual Funds</span>
     </nav>
   </div>
 
-  <section class="section" data-cms="hero" data-cms-id="mutual-funds-hero">
+  <section class="hero gradient-bg" style="padding: 60px 0 80px;" data-cms="hero" data-cms-id="mutual-funds-hero">
     <div class="container">
-      <h1 style="text-align: center; margin-bottom: 20px;" data-hero="heading">Grow Your Wealth Systematically</h1>
-      <p style="text-align: center; margin-bottom: 40px;" data-hero="subheading">Select from over 2,000+ direct mutual funds. Zero commissions, unbiased recommendations.</p>
+      <h1 data-hero="heading">Invest in Your Future.</h1>
+      <p data-hero="subheading">Start your investment journey with top-performing Equity, Debt, and Hybrid Mutual Funds.</p>
     </div>
   </section>
 
@@ -44,67 +40,14 @@
     </div>
   </section>
 
-  <!-- Embedded SIP Calculator -->
-  <section class="section" style="background: var(--light-bg);">
+  <section class="section" data-cms="faqs" data-cms-category="mutual-funds">
     <div class="container" style="max-width: 800px;">
-      <div class="card">
-        <h2 style="text-align: center; margin-bottom: 30px;">Quick SIP Projection</h2>
-        <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-          <div style="flex: 1; min-width: 250px;">
-            <div class="input-group">
-              <div class="input-label">Monthly SIP (₹)</div>
-              <input type="number" id="mf-sip" value="5000" style="width:100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border);">
-            </div>
-            <div class="input-group">
-              <div class="input-label">Years</div>
-              <input type="number" id="mf-years" value="10" style="width:100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border);">
-            </div>
-            <div class="input-group">
-              <div class="input-label">Expected Return (%)</div>
-              <input type="number" id="mf-ret" value="12" style="width:100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border);">
-            </div>
-          </div>
-          <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; justify-content: center; background: var(--light-bg); border-radius: 12px; padding: 24px; text-align: center;">
-            <div style="font-size: 14px; color: var(--text-secondary);">Expected Value</div>
-            <div id="mf-value" style="font-size: 32px; font-weight: 800; color: var(--secondary);">₹11,61,695</div>
-            <div style="margin-top: 16px; font-size: 12px; color: var(--text-secondary);">Total Invested: <span id="mf-inv">₹6,00,000</span></div>
-            <a href="calculators/sip.html" style="font-size: 13px; margin-top: 16px;">Open detailed calculator →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      function updateSip() {
-        const P = parseFloat(document.getElementById('mf-sip').value) || 0;
-        const n = parseFloat(document.getElementById('mf-years').value) * 12 || 1;
-        const i = parseFloat(document.getElementById('mf-ret').value) / (12 * 100) || 0;
-        const inv = P * n;
-        const val = i === 0 ? inv : P * ( (Math.pow(1+i, n) - 1)/i ) * (1+i);
-        document.getElementById('mf-inv').innerText = window.formatINR ? window.formatINR(inv) : '₹'+inv;
-        document.getElementById('mf-value').innerText = window.formatINR ? window.formatINR(val) : '₹'+val.toFixed(0);
-      }
-      document.getElementById('mf-sip').addEventListener('input', updateSip);
-      document.getElementById('mf-years').addEventListener('input', updateSip);
-      document.getElementById('mf-ret').addEventListener('input', updateSip);
-    </script>
-  </section>
-
-  <!-- Risk Quiz -->
-  <section class="section">
-    <div class="container" style="max-width: 800px;">
-      <h2 style="text-align: center;">Not sure where to invest?</h2>
-      <p style="text-align: center; margin-bottom: 40px;">Take our 1-minute risk profile quiz to get a personalized portfolio.</p>
-      <div class="card" style="text-align: center;">
-        <h3 style="margin-bottom: 24px;">Question 1 of 3: How long do you plan to invest?</h3>
-        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 400px; margin: 0 auto;">
-          <button class="btn btn-outline" style="width: 100%;">Less than 3 years</button>
-          <button class="btn btn-outline" style="width: 100%;">3 to 7 years</button>
-          <button class="btn btn-outline" style="width: 100%;">More than 7 years</button>
-        </div>
+      <h2 style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
+      <div class="faq-accordion" data-faqs="list">
+        <!-- FAQs injected by page-sections.js -->
       </div>
     </div>
   </section>
-
 
   <script src="main.js"></script>
 </body>

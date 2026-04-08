@@ -3,22 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apply for Loans Online - Personal, Home, Business Loans | Finzoop</title>
-  <meta name="description" content="Compare and apply for personal loans, home loans, business loans at lowest interest rates. Check eligibility in 2 minutes. Zero processing fee.">
-  <meta name="keywords" content="personal loan, home loan, business loan, finzoop loans, instant loan">
+  <title>Loans | Finzoop</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
   <script src="products.js"></script>
   <script src="page-sections.js"></script>
 </head>
 <body data-cms-page="loans" data-product-page="loans">
-
 
   <div class="container" style="padding-top: 120px;" data-cms="page-seo" data-cms-slug="loans-page">
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -31,7 +27,7 @@
       <h1 data-hero="heading">Get the Right Loan. Faster.</h1>
       <p data-hero="subheading">Compare pre-approved offers from 50+ lenders. Lowest interest rates, minimum documentation.</p>
       <div class="hero-ctas">
-        <a href="#" class="btn" style="background:#fff; color:var(--primary);" data-hero="cta-primary">Check Free CIBIL Score</a>
+        <a href="#product-grid-container" class="btn" style="background:#fff; color:var(--primary);" data-hero="cta-primary">View All Loans</a>
       </div>
     </div>
   </section>
@@ -47,50 +43,15 @@
     </div>
   </section>
 
-  <section class="section" style="background: var(--card-bg);">
-    <div class="container" style="max-width: 800px;">
-      <h2 style="text-align: center; margin-bottom: 40px;">Compare Lenders</h2>
-      <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left;">
-          <thead>
-            <tr style="border-bottom: 2px solid var(--border);">
-              <th style="padding: 16px;">Bank / NBFC</th>
-              <th style="padding: 16px;">Personal Loan</th>
-              <th style="padding: 16px;">Home Loan</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 16px;">Leading Bank 1</td><td style="padding: 16px;">10.49% - 16.00%</td><td style="padding: 16px;">8.40% - 9.15%</td>
-            </tr>
-            <tr style="border-bottom: 1px solid var(--border);">
-               <td style="padding: 16px;">Leading Bank 2</td><td style="padding: 16px;">10.50% - 17.50%</td><td style="padding: 16px;">8.35% - 9.50%</td>
-            </tr>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 16px;">Major NBFC</td><td style="padding: 16px;">11.00% - 22.00%</td><td style="padding: 16px;">N/A</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQs -->
   <section class="section" data-cms="faqs" data-cms-category="loans">
     <div class="container" style="max-width: 800px;">
       <h2 style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
       <div class="faq-accordion" data-faqs="list">
         <!-- FAQs injected by page-sections.js -->
-        <div class="faq-item">
-          <div class="faq-q">Does checking loan offers impact my CIBIL score?</div>
-          <div class="faq-a"><p>No, checking eligibility on Finzoop generates a "soft pull" which does not impact your credit score at all.</p></div>
-        </div>
       </div>
     </div>
   </section>
 
-
   <script src="main.js"></script>
-  <script>if(window.lucide){lucide.createIcons();}</script>
 </body>
 </html>

@@ -3,22 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compare Life, Health & Motor Insurance | Finzoop</title>
-  <meta name="description" content="Compare and buy life insurance, term plans, health insurance, and car insurance online. Unbiased advice and dedicated claim support.">
-  <meta name="keywords" content="health insurance, term life insurance, car insurance online, buy insurance India">
+  <title>Insurance Plans in India | Finzoop</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
   <script src="products.js"></script>
   <script src="page-sections.js"></script>
 </head>
 <body data-cms-page="insurance" data-product-page="insurance">
-
 
   <div class="container" style="padding-top: 120px;" data-cms="page-seo" data-cms-slug="insurance-page">
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -26,10 +22,10 @@
     </nav>
   </div>
 
-  <section class="section" data-cms="hero" data-cms-id="insurance-hero">
+  <section class="hero gradient-bg" style="padding: 60px 0 80px;" data-cms="hero" data-cms-id="insurance-hero">
     <div class="container">
-      <h1 style="text-align: center; margin-bottom: 20px;" data-hero="heading">Protect What Matters Most</h1>
-      <p style="text-align: center; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;" data-hero="subheading">Compare 100+ plans from India's top insurers. Finzoop offers unbiased advice and stands by you during claims.</p>
+      <h1 data-hero="heading">Protect What Matters.</h1>
+      <p data-hero="subheading">Secure your family's future with the best Health, Life, and Term insurance plans at unbeatable premiums.</p>
     </div>
   </section>
 
@@ -44,30 +40,15 @@
     </div>
   </section>
 
-  <!-- Claim Support -->
-  <section class="section" style="background: var(--dark); color: #fff;">
-    <div class="container" style="text-align: center;">
-      <h2 style="color: #fff;">Finzoop Claim Support</h2>
-      <p style="max-width: 600px; margin: 0 auto 40px; color: #cbd5e1;">Buying insurance is just the start. The real value is during a claim. Our dedicated claims team ensures you don't face the insurer alone.</p>
-      <div class="grid-3">
-        <div class="card" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
-          <h3 style="color: #fff;">Dedicated RM</h3>
-          <p style="color: #cbd5e1;">A dedicated Relationship Manager to guide you through the documentation process.</p>
-        </div>
-        <div class="card" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
-          <h3 style="color: #fff;">Cashless Network</h3>
-          <p style="color: #cbd5e1;">Access to 10,000+ cashless network hospitals and garages across India.</p>
-        </div>
-        <div class="card" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
-          <h3 style="color: #fff;">Dispute Resolution</h3>
-          <p style="color: #cbd5e1;">We escalate cases to the insurer's grievance cell in case of unfair rejections.</p>
-        </div>
+  <section class="section" data-cms="faqs" data-cms-category="insurance">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
+      <div class="faq-accordion" data-faqs="list">
+        <!-- FAQs injected by page-sections.js -->
       </div>
     </div>
   </section>
 
-
   <script src="main.js"></script>
-  <script>if(window.lucide){lucide.createIcons();}</script>
 </body>
 </html>

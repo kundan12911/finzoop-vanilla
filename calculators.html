@@ -3,136 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Financial Calculators | SIP, EMI, FD, Tax & More | Finzoop</title>
-  <meta name="description" content="Use Finzoop's free online financial calculators. SIP, lumpsum, EMI, FD, PPF, income tax, EPF, SSY, ELSS, SWP, GST, XIRR calculators.">
+  <title>Financial Calculators - SIP, Home Loan, Lumpsum | Finzoop</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
   <script src="page-sections.js"></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "url": "https://finzoop.com/calculators/sip.html", "name": "SIP Calculator" },
-      { "@type": "ListItem", "position": 2, "url": "https://finzoop.com/calculators/emi.html", "name": "EMI Calculator" },
-      { "@type": "ListItem", "position": 3, "url": "https://finzoop.com/calculators/income-tax.html", "name": "Income Tax Calculator" }
-    ]
-  }
-  </script>
 </head>
 <body data-cms-page="calculators">
 
-
   <div class="container" style="padding-top: 120px;" data-cms="page-seo" data-cms-slug="calculators-page">
-    <nav class="breadcrumb">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="index.html">Home</a><span class="separator">›</span><span aria-current="page">Calculators</span>
     </nav>
   </div>
 
-  <section class="hero" style="padding: 40px 0 60px;">
+  <section class="hero gradient-bg" style="padding: 60px 0 80px;" data-cms="hero" data-cms-id="calculators-hero">
     <div class="container">
-      <h1>Make Smarter Financial Decisions</h1>
-      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Our 14 comprehensive calculators are perfectly tuned for Indian taxation, compounding, and regulations.</p>
+      <h1 data-hero="heading">Free Financial Tools & Calculators.</h1>
+      <p data-hero="subheading">Plan your goals, calculate your EMIs, and visualize your wealth growth with our easy-to-use tools.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <!-- Investment Calculators -->
-      <h2 style="font-size: 20px; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 24px;">Investment Calculators</h2>
-      <div class="grid-3" style="margin-bottom: 40px;">
-        <a href="calculators/sip.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="trending-up" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> SIP Calculator</h3>
-          <p class="small">Calculate wealth creation through regular mutual fund investments.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
+      <div class="grid-3" style="gap: 24px;">
+        <a href="sip-calculator.html" class="card calculator-card">
+          <div class="icon-box"><i data-lucide="calculator" class="icon-lg"></i></div>
+          <h3>SIP Calculator</h3>
+          <p>Calculate future value of your monthly SIP investments.</p>
         </a>
-        <a href="calculators/lumpsum.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="coins" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> Lumpsum Calculator</h3>
-          <p class="small">Estimate returns on one-time mutual fund investments.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
+        <a href="home-loan-emi-calculator.html" class="card calculator-card">
+          <div class="icon-box"><i data-lucide="home" class="icon-lg"></i></div>
+          <h3>Home Loan EMI</h3>
+          <p>Estimate your monthly payments for home loans.</p>
         </a>
-        <a href="calculators/swp.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="banknote" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> SWP Calculator</h3>
-          <p class="small">Plan regular monthly withdrawals from your accumulated corpus.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-        <a href="calculators/mutual-fund-returns.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="bar-chart-2" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> MF Returns Calculator</h3>
-          <p class="small">Calculate absolute and CAGR returns on mutual funds.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-        <a href="calculators/xirr.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="refresh-cw" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> XIRR Calculator</h3>
-          <p class="small">Calculate extended internal rate of return for irregular cash flows.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-      </div>
-
-      <!-- Loan & Tax -->
-      <h2 style="font-size: 20px; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 24px;">Loans & Taxes</h2>
-      <div class="grid-3" style="margin-bottom: 40px;">
-        <a href="calculators/emi.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="home" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> EMI Calculator</h3>
-          <p class="small">Compute monthly EMI for home, personal, and car loans.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-        <a href="calculators/income-tax.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="file-text" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> Income Tax Calculator</h3>
-          <p class="small">Compare Old vs New regime for FY 2025-26.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-        <a href="calculators/gst.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="shopping-cart" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> GST Calculator</h3>
-          <p class="small">Add or reverse GST amounts instantly across all tax slabs.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-        <a href="calculators/elss.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="scale" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> ELSS Tax Saving</h3>
-          <p class="small">Calculate returns and Section 80C tax saved with ELSS funds.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-      </div>
-
-      <!-- Safe Savings -->
-      <h2 style="font-size: 20px; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 24px;">Safe Savings</h2>
-      <div class="grid-3">
-        <a href="calculators/fd.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="landmark" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> FD Calculator</h3>
-          <p class="small">Calculate Fixed Deposit maturity with various compounding frequencies.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-        <a href="calculators/rd.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="landmark" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> RD Calculator</h3>
-          <p class="small">Calculate maturity for monthly Recurring Deposits.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-        <a href="calculators/ppf.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="shield" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> PPF Calculator</h3>
-          <p class="small">Calculate tax-free maturity amount for 15-year Public Provident Fund.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-        <a href="calculators/epf.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="building-2" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> EPF Calculator</h3>
-          <p class="small">Estimate your Employee Provident Fund corpus at retirement.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
-        </a>
-        <a href="calculators/sukanya-samriddhi-yojana.html" class="card">
-          <h3 style="font-size: 18px;"><i data-lucide="baby" class="icon-md" style="margin-right:8px; vertical-align:middle;"></i> SSY Calculator</h3>
-          <p class="small">Calculate maturity for Sukanya Samriddhi Yojana.</p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 14px;">Calculate &rarr;</span>
+        <a href="swp-calculator.html" class="card calculator-card">
+          <div class="icon-box"><i data-lucide="arrow-up-right" class="icon-lg"></i></div>
+          <h3>SWP Calculator</h3>
+          <p>Calculate your systematic withdrawals and remaining capital.</p>
         </a>
       </div>
     </div>
   </section>
 
-
   <script src="main.js"></script>
-  <script>if(window.lucide){lucide.createIcons();}</script>
 </body>
 </html>

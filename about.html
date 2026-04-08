@@ -3,30 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Finzoop | India's Trusted Financial Distribution Platform</title>
-  <meta name="description" content="Learn about Finzoop's mission to simplify financial decisions for every Indian. We are an AMFI registered distributor and IRDAI corporate agent.">
+  <title>About Us | Finzoop</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    window.CONTENTFUL_SPACE_ID       = 'tabc1qgaltm6';
-    window.CONTENTFUL_ACCESS_TOKEN   = 'VCpSt0x-mm6pOncY1cYlkkuU5b9UsD_cs_mINwRgs6I';
-    window.CONTENTFUL_PREVIEW_TOKEN  = 'Y3V82ept2t018xmuDJfyAf2Da86iZSsntizHFKwHmhk';
+    window.STRAPI_URL = 'https://finzoop-strapi.onrender.com/api'; 
   </script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="cms.js"></script>
   <script src="shared-nav.js"></script>
   <script src="page-sections.js"></script>
 </head>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Finzoop",
-    "url": "https://finzoop.com/about.html",
-    "logo": "https://finzoop.com/logo.png"
-  }
-  </script>
-</head>
 <body data-cms-page="about">
-
 
   <div class="container" style="padding-top: 120px;" data-cms="page-seo" data-cms-slug="about-page">
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -34,85 +21,33 @@
     </nav>
   </div>
 
+  <section class="hero gradient-bg" style="padding: 60px 0 80px;" data-cms="hero" data-cms-id="about-hero">
+    <div class="container">
+      <h1 data-hero="heading">Empowering Your Financial Journey.</h1>
+      <p data-hero="subheading">Finzoop is India's leading financial comparison platform, dedicated to helping you make smarter, unbiased decisions.</p>
+    </div>
+  </section>
+
   <section class="section">
-    <div class="container">
-      <h1 style="text-align: center; margin-bottom: 24px;">Democratizing Finance for India</h1>
+    <div class="container" style="max-width: 800px;">
+      <h2>Our Mission</h2>
+      <p style="font-size: 1.1rem; line-height: 1.8;">At Finzoop, we believe that everyone deserves access to clear, transparent, and unbiased financial information. Our mission is to simplify complex financial products and empower millions of Indians to save money and build wealth through smart choices.</p>
       
-      <div style="max-width: 800px; margin: 0 auto; text-align: center; margin-bottom: 60px;">
-        <h2>Our Mission & Vision</h2>
-        <p style="font-size: 18px;">Our mission is to empower every Indian to make smarter, data-backed financial decisions. We envision a future where accessing the right loan, insurance policy, or investment product is as simple, transparent, and unbiased as booking a flight.</p>
-      </div>
-
-      <div class="grid-3">
-        <div class="card" style="grid-column: span 3;">
-          <h2 style="margin-bottom: 20px;">The Founding Story</h2>
-          <p>Finzoop was born out of a simple frustration: financial products in India are too complex, often laden with hidden fees, and mis-sold to unsuspecting customers. As a bootstrapped fintech startup, our founders decided to build a platform that puts the consumer first. By combining intuitive technology, comprehensive data, and strict regulatory adherence, Finzoop was established to bring absolute transparency to personal finance.</p>
+      <div class="grid-2" style="margin-top: 40px; gap: 30px;">
+        <div class="card">
+          <div class="icon-box" style="margin-bottom: 20px; color: var(--primary);"><i data-lucide="shield-check" class="icon-lg"></i></div>
+          <h3>100% Unbiased</h3>
+          <p>We work for you, not the banks. Our comparisons are always neutral and data-driven.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box" style="margin-bottom: 20px; color: var(--secondary);"><i data-lucide="zap" class="icon-lg"></i></div>
+          <h3>Lightning Fast</h3>
+          <p>Get personalized quotes and approval in minutes, not days.</p>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Team -->
-  <section class="section" style="background: var(--card-bg);">
-    <div class="container">
-      <h2 style="text-align: center;">Our Leadership Team</h2>
-      <p style="text-align: center; margin-bottom: 40px;">Led by industry veterans working to simplify your financial life.</p>
-      <div class="grid-3" style="text-align: center;">
-        <div class="card">
-          <div style="width: 120px; height: 120px; margin: 0 auto 20px; background: var(--border); border-radius: 50%;"></div>
-          <h3>Founder & CEO</h3>
-          <p>15+ years driving digital lending innovations in top Indian banks.</p>
-        </div>
-        <div class="card">
-          <div style="width: 120px; height: 120px; margin: 0 auto 20px; background: var(--border); border-radius: 50%;"></div>
-          <h3>Chief Technology Officer</h3>
-          <p>Ex-FAANG engineer passionate about building scalable, secure fintech platforms.</p>
-        </div>
-        <div class="card">
-          <div style="width: 120px; height: 120px; margin: 0 auto 20px; background: var(--border); border-radius: 50%;"></div>
-          <h3>Head of Distribution</h3>
-          <p>Expert in mutual funds and insurance, ensuring compliance and best-in-class products.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Licenses and Partners -->
-  <section class="section" data-cms="partners">
-    <div class="container">
-      <h2 style="text-align: center;">Regulatory Licenses</h2>
-      <div class="grid-3" style="margin-bottom: 60px;">
-        <div class="card" style="text-align: center; border-color: var(--secondary);">
-          <h3 style="color: var(--secondary);">AMFI Registered</h3>
-          <p>Authorized Mutual Fund Distributor adhering strictly to AMFI guidelines and SEBI regulations.</p>
-        </div>
-        <div class="card" style="text-align: center; border-color: var(--primary);">
-          <h3 style="color: var(--primary);">IRDAI Corporate Agent</h3>
-          <p>Licensed Corporate Agent (Composite) by IRDAI to solicit life, health, and general insurance.</p>
-        </div>
-        <div class="card" style="text-align: center; border-color: var(--accent);">
-          <h3 style="color: var(--accent);">PFRDA PoP</h3>
-          <p>Registered Point of Presence (PoP) under PFRDA for National Pension System (NPS) distribution.</p>
-        </div>
-      </div>
-
-      <h2 style="text-align: center;">Our Partners</h2>
-      <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px;" data-partners="grid">
-        <div style="width: 160px; height: 60px; background: #fff; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items:center; justify-content:center; color: var(--text-secondary); font-weight:600;">Partner Bank 1</div>
-        <div style="width: 160px; height: 60px; background: #fff; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items:center; justify-content:center; color: var(--text-secondary); font-weight:600;">Top Insurer 2</div>
-        <div style="width: 160px; height: 60px; background: #fff; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items:center; justify-content:center; color: var(--text-secondary); font-weight:600;">Leading AMC 3</div>
-        <div style="width: 160px; height: 60px; background: #fff; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items:center; justify-content:center; color: var(--text-secondary); font-weight:600;">NBFC Partner 4</div>
-      </div>
-
-      <h2 style="text-align: center;">Press Mentions</h2>
-      <div style="padding: 40px; background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); text-align: center; color: var(--text-secondary);">
-        <i>"Finzoop is revolutionizing the distribution of financial products in India with unparalleled transparency." - Top Financial Daily</i>
-      </div>
-    </div>
-  </section>
-
 
   <script src="main.js"></script>
-  <script>if(window.lucide){lucide.createIcons();}</script>
 </body>
 </html>
